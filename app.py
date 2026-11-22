@@ -9,8 +9,11 @@ from google.genai import types
 app = Flask(__name__)
 app.secret_key = 'itm_socratic_ai_secret_key_2026'
 
-# Cliente oficial de Gemini
+# Cliente oficial de Gemini (Reemplaza con tu nueva API Key de pago de Google AI Studio)
 client = genai.Client(api_key="AQ.Ab8RN6KJ1ve8UMmx23deGo2FgwP7n317d2Okx-ux3Go42S6-sg")
+
+# Modelo vigente recomendado para baja latencia y alta concurrencia
+MODELO_GEMINI = "gemini-4-hydrogen"
 
 SYSTEM_PROMPT = """Eres un tutor socrático para estudiantes de Ingeniería en Sistemas Computacionales del ITM. 
 Nunca devuelvas código completo. 
@@ -25,10 +28,6 @@ def get_db_connection():
     conn.execute('PRAGMA journal_mode=WAL;')
     conn.execute('PRAGMA synchronous=NORMAL;')
     return conn
-def get_db_connection():
-    conn = sqlite3.connect('telemetria.db')
-    conn.row_factory = sqlite3.Row
-    return conn
 
 def cargar_preguntas():
     with open('banco_preguntas.json', 'r', encoding='utf-8') as f:
@@ -38,41 +37,49 @@ def cargar_preguntas():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        matricula = request.form.get('matricula').strip()
-        semestre = request.form.get('semestre')
+        matricula = request.form.get('matricula', '').strip().upper()
+        semestre = request.form.get('semestre') or "3er Semestre"
         
+        if not matricula:
+            return redirect(url_for('login'))
+
         conn = get_db_connection()
-        estudiante = conn.execute('SELECT id_estudiante, preguntas_asignadas FROM estudiantes WHERE matricula = ?', (matricula,)).fetchone()
+        estudiante = conn.execute(
+            'SELECT id_estudiante, preguntas_asignadas FROM estudiantes WHERE matricula = ?',
+            (matricula,)
+        ).fetchone()
         
         if estudiante:
             id_estudiante = estudiante['id_estudiante']
             preguntas_guardadas = estudiante['preguntas_asignadas']
             
             if preguntas_guardadas:
-                # Si ya tenía preguntas asignadas previamente, las recuperamos
                 ids_asignados = [int(x) for x in preguntas_guardadas.split(',')]
             else:
-                # Si por alguna razón no las tenía, se las generamos y guardamos
                 todas = cargar_preguntas()
                 muestra = random.sample(todas, min(5, len(todas)))
                 ids_asignados = [p['id'] for p in muestra]
                 ids_str = ",".join(map(str, ids_asignados))
-                conn.execute('UPDATE estudiantes SET preguntas_asignadas = ? WHERE id_estudiante = ?', (ids_str, id_estudiante))
+                conn.execute(
+                    'UPDATE estudiantes SET preguntas_asignadas = ? WHERE id_estudiante = ?',
+                    (ids_str, id_estudiante)
+                )
                 conn.commit()
         else:
-            # Si es un alumno completamente nuevo, seleccionamos 5 al azar y las guardamos
             todas = cargar_preguntas()
             muestra = random.sample(todas, min(5, len(todas)))
             ids_asignados = [p['id'] for p in muestra]
             ids_str = ",".join(map(str, ids_asignados))
             
-            cursor = conn.execute('INSERT INTO estudiantes (matricula, semestre, preguntas_asignadas) VALUES (?, ?, ?)', (matricula, semestre, ids_str))
+            cursor = conn.execute(
+                'INSERT INTO estudiantes (matricula, semestre, preguntas_asignadas) VALUES (?, ?, ?)',
+                (matricula, semestre, ids_str)
+            )
             conn.commit()
             id_estudiante = cursor.lastrowid
             
         conn.close()
         
-        # Guardar en la sesión del navegador
         session['id_estudiante'] = id_estudiante
         session['matricula'] = matricula
         session['preguntas_asignadas_ids'] = ids_asignados
@@ -97,27 +104,42 @@ def index():
     ids_asignados = session.get('preguntas_asignadas_ids', [])
     
     todas = cargar_preguntas()
-    # Filtrar estrictamente las 5 preguntas que le pertenecen a este alumno
     preguntas = [p for p in todas if p['id'] in ids_asignados]
     
-    # Consultar qué preguntas de sus 5 ya respondió
     conn = get_db_connection()
-    respondidas_db = conn.execute('SELECT DISTINCT id_pregunta FROM resultados_evaluacion WHERE id_estudiante = ?', (id_estudiante,)).fetchall()
+    respondidas_db = conn.execute(
+        'SELECT DISTINCT id_pregunta FROM resultados_evaluacion WHERE id_estudiante = ?',
+        (id_estudiante,)
+    ).fetchall()
     conn.close()
     
     preguntas_respondidas = [fila['id_pregunta'] for fila in respondidas_db]
     
-    return render_template('index.html', preguntas=preguntas, respondidas=preguntas_respondidas, matricula=session.get('matricula'))
+    return render_template(
+        'index.html',
+        preguntas=preguntas,
+        respondidas=preguntas_respondidas,
+        matricula=session.get('matricula')
+    )
 
-# Ruta para el entorno de evaluación
-
-# Ruta para el entorno de evaluación (Pasa el objeto pregunta completo)
+# Ruta para el entorno de evaluación (Impide reabrir reactivos ya respondidos)
 @app.route('/examen/<int:id_pregunta>')
 def examen(id_pregunta):
     if 'id_estudiante' not in session:
         return redirect(url_for('login'))
         
     if id_pregunta not in session.get('preguntas_asignadas_ids', []):
+        return redirect(url_for('index'))
+
+    # Verificar si el alumno ya envió este reactivo para evitar sobrescrituras
+    conn = get_db_connection()
+    ya_respondida = conn.execute(
+        'SELECT id_resultado FROM resultados_evaluacion WHERE id_estudiante = ? AND id_pregunta = ?',
+        (session['id_estudiante'], id_pregunta)
+    ).fetchone()
+    conn.close()
+
+    if ya_respondida:
         return redirect(url_for('index'))
         
     preguntas = cargar_preguntas()
@@ -128,10 +150,7 @@ def examen(id_pregunta):
         
     return render_template('examen.html', pregunta=pregunta_actual)
 
-
-
-
-# Ruta Proxy Inverso para Gemini con reintentos automáticos ante saturación (503)
+# Ruta Proxy Inverso para Gemini con reintentos automáticos
 @app.route('/api/chat', methods=['POST'])
 def chat_socratico():
     if 'id_estudiante' not in session:
@@ -153,27 +172,27 @@ def chat_socratico():
     texto_ia = None
     ultimo_error = ""
 
-    # Intentar hasta 3 veces si el servidor de Google está saturado (503)
+    # Intentar hasta 3 veces si ocurre algún pico temporal de red o cuota
     for intento in range(3):
         try:
             respuesta = client.models.generate_content(
-                model="gemini-4-hydrogen",
+                model=MODELO_GEMINI,
                 contents=contenidos,
                 config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT, temperature=0.3)
             )
             texto_ia = respuesta.text
-            break  # Si respondió con éxito, salimos del ciclo
+            break
         except Exception as e:
             ultimo_error = str(e)
             print(f"Intento {intento + 1} fallido con Gemini: {ultimo_error}")
             if "503" in ultimo_error or "UNAVAILABLE" in ultimo_error or "429" in ultimo_error:
-                time.sleep(2 * (intento + 1))  # Espera 2s, luego 4s antes de reintentar
+                time.sleep(2 * (intento + 1))
             else:
-                break  # Si es otro tipo de error, no tiene caso reintentar
+                break
 
     if not texto_ia:
         return jsonify({
-            "error": "El tutor está recibiendo muchas consultas en este momento. Espera unos 5 segundos y vuelve a presionar 'Consultar'."
+            "error": "El tutor está procesando varias consultas en este momento. Espera 5 segundos y vuelve a presionar 'Consultar'."
         }), 503
 
     try:
@@ -184,15 +203,10 @@ def chat_socratico():
         ''', (id_estudiante, id_pregunta, prompt_alumno, texto_ia, latencia))
         conn.commit()
         conn.close()
-
-        return jsonify({"respuesta": texto_ia})
     except Exception as db_err:
         print(f"Error al guardar interacción en SQLite: {db_err}")
-        return jsonify({"respuesta": texto_ia})
 
-    except Exception as e:
-        print(f"Error detallado en la API de Gemini: {e}")
-        return jsonify({"error": f"Error de conexión con el tutor: {str(e)}"}), 500
+    return jsonify({"respuesta": texto_ia})
 
 # Ruta para recibir telemetría del teclado
 @app.route('/api/telemetria', methods=['POST'])
@@ -215,7 +229,7 @@ def registrar_telemetria():
     conn.close()
     return jsonify({"status": "ok"})
 
-# Ruta para guardar respuesta final y justificación
+# Ruta para guardar respuesta final y justificación (Protegida contra doble envío)
 @app.route('/api/finalizar', methods=['POST'])
 def finalizar_reactivo():
     if 'id_estudiante' not in session:
@@ -229,25 +243,98 @@ def finalizar_reactivo():
     tiempo_total = datos.get('tiempo_total', 0)
     
     conn = get_db_connection()
-    existente = conn.execute('SELECT id_resultado FROM resultados_evaluacion WHERE id_estudiante = ? AND id_pregunta = ?', (id_estudiante, id_pregunta)).fetchone()
+    existente = conn.execute(
+        'SELECT id_resultado FROM resultados_evaluacion WHERE id_estudiante = ? AND id_pregunta = ?',
+        (id_estudiante, id_pregunta)
+    ).fetchone()
     
     if existente:
-        conn.execute('''
-            UPDATE resultados_evaluacion 
-            SET codigo_final = ?, justificacion = ?, tiempo_total_resolucion_seg = ? 
-            WHERE id_estudiante = ? AND id_pregunta = ?
-        ''', (codigo_final, justificacion, tiempo_total, id_estudiante, id_pregunta))
-    else:
-        conn.execute('''
-            INSERT INTO resultados_evaluacion (id_estudiante, id_pregunta, codigo_final, justificacion, tiempo_total_resolucion_seg)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (id_estudiante, id_pregunta, codigo_final, justificacion, tiempo_total))
+        conn.close()
+        return jsonify({"status": "ya_respondida", "error": "Este reactivo ya fue registrado anteriormente."}), 400
+
+    conn.execute('''
+        INSERT INTO resultados_evaluacion (id_estudiante, id_pregunta, codigo_final, justificacion, tiempo_total_resolucion_seg)
+        VALUES (?, ?, ?, ?, ?)
+    ''', (id_estudiante, id_pregunta, codigo_final, justificacion, tiempo_total))
         
     conn.commit()
     conn.close()
     return jsonify({"status": "guardado"})
 
+# Panel de monitoreo en tiempo real para el investigador (Sala de cómputo)
+@app.route('/monitor')
+def monitor_grupo():
+    conn = get_db_connection()
+    filas = conn.execute('''
+        SELECT 
+            e.id_estudiante,
+            e.matricula,
+            e.semestre,
+            e.preguntas_asignadas,
+            COUNT(DISTINCT r.id_pregunta) AS completadas,
+            COALESCE(SUM(r.tiempo_total_resolucion_seg), 0) AS tiempo_total_seg,
+            (SELECT COUNT(*) FROM interacciones_ia i WHERE i.id_estudiante = e.id_estudiante) AS total_consultas_ia
+        FROM estudiantes e
+        LEFT JOIN resultados_evaluacion r ON e.id_estudiante = r.id_estudiante
+        GROUP BY e.id_estudiante
+        ORDER BY e.id_estudiante DESC
+    ''').fetchall()
+    conn.close()
+
+    filas_html = ""
+    for f in filas:
+        estado = "Completado" if f['completadas'] >= 5 else "En progreso"
+        color = "#16a34a" if f['completadas'] >= 5 else "#2563eb"
+        filas_html += f"""
+        <tr>
+            <td>{f['id_estudiante']}</td>
+            <td><strong>{f['matricula']}</strong></td>
+            <td>{f['semestre']}</td>
+            <td>{f['preguntas_asignadas']}</td>
+            <td><span style="color:{color}; font-weight:bold;">{f['completadas']} / 5 ({estado})</span></td>
+            <td>{f['total_consultas_ia']}</td>
+            <td>{f['tiempo_total_seg']} s</td>
+        </tr>
+        """
+
+    return f"""
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="10">
+        <title>Monitor en Vivo - IA Socrática ITM</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; background: #f1f5f9; padding: 20px; color: #1e293b; }}
+            h1 {{ color: #1b263b; margin-bottom: 5px; }}
+            p {{ color: #64748b; margin-top: 0; }}
+            table {{ width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
+            th, td {{ padding: 12px; border-bottom: 1px solid #e2e8f0; text-align: left; }}
+            th {{ background: #1b263b; color: white; }}
+        </style>
+    </head>
+    <body>
+        <h1>Monitor de Sesión en Vivo — TecNM ITM</h1>
+        <p>Actualización automática cada 10 segundos | Alumnos registrados: <strong>{len(filas)}</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Matrícula</th>
+                    <th>Semestre</th>
+                    <th>Reactivos Asignados</th>
+                    <th>Avance</th>
+                    <th>Consultas al Tutor</th>
+                    <th>Tiempo Acumulado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {filas_html if filas_html else '<tr><td colspan="7">Aún no hay alumnos conectados.</td></tr>'}
+            </tbody>
+        </table>
+    </body>
+    </html>
+    """
+
 if __name__ == '__main__':
-    # threaded=True permite atender peticiones simultáneas de los 20 alumnos
-    # debug=False evita reinicios inesperados y mejora el rendimiento en red local
     app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)

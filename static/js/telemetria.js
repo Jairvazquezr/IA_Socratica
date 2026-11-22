@@ -14,27 +14,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }).catch(err => console.error("Error telemetría:", err));
     }
 
-    // --- 1. CRONÓMETRO Y LÓGICA PARA FINALIZAR REACTIVO ---
+    // --- 1. CRONÓMETRO, VALIDACIÓN Y LÓGICA PARA FINALIZAR REACTIVO ---
     const btnFinalizar = document.getElementById("btn-enviar-codigo");
     if (btnFinalizar) {
         const tiempoInicio = Date.now();
+        let enviandoFinal = false;
 
         btnFinalizar.addEventListener("click", () => {
-            try {
-                // Si quedaron borrados pendientes por registrar, los enviamos antes de cerrar
-                if (contadorBackspace > 0) {
-                    registrarEventoEditor("BACKSPACE", contadorBackspace);
-                    contadorBackspace = 0;
-                }
+            if (enviandoFinal) return;
 
+            try {
                 let codigoFinal = "";
                 if (typeof tipoPregunta !== 'undefined') {
                     if (tipoPregunta === 1) {
                         const seleccion = document.querySelector('input[name="respuesta_t1"]:checked');
-                        codigoFinal = seleccion ? seleccion.value : "Sin responder";
+                        if (!seleccion) {
+                            alert("Por favor, selecciona una opción antes de finalizar el reactivo.");
+                            return;
+                        }
+                        codigoFinal = seleccion.value;
                     } else if (tipoPregunta === 2) {
                         const editor = document.getElementById("editor-codigo");
                         codigoFinal = editor ? editor.value : "";
+                        if (codigoFinal.trim() === "") {
+                            alert("Por favor, escribe tu solución en el editor antes de finalizar.");
+                            return;
+                        }
                     } else if (tipoPregunta === 3) {
                         const bloques = document.querySelectorAll("#parsons-container .linea-codigo");
                         codigoFinal = Array.from(bloques).map(b => b.textContent.trim()).join("\n");
@@ -43,6 +48,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const inputJustificacion = document.getElementById("justificacion-alumno");
                 const justificacion = inputJustificacion ? inputJustificacion.value.trim() : "";
+
+                if (justificacion.length < 5) {
+                    alert("Por favor, redacta una breve justificación lógica de tu respuesta antes de enviar.");
+                    if (inputJustificacion) inputJustificacion.focus();
+                    return;
+                }
+
+                const confirmarEnvio = confirm("¿Estás seguro de finalizar este reactivo? Una vez enviado no podrás modificar tu respuesta.");
+                if (!confirmarEnvio) return;
+
+                enviandoFinal = true;
+                btnFinalizar.disabled = true;
+                btnFinalizar.textContent = "Guardando respuesta...";
+
+                // Si quedaron borrados pendientes por registrar, los enviamos antes de cerrar
+                if (contadorBackspace > 0) {
+                    registrarEventoEditor("BACKSPACE", contadorBackspace);
+                    contadorBackspace = 0;
+                }
 
                 const tiempoTranscurridoMs = Date.now() - tiempoInicio;
                 const tiempoTotalSeg = Math.floor(tiempoTranscurridoMs / 1000);
@@ -63,16 +87,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .catch(err => {
                     console.error("Error al guardar:", err);
-                    alert("Ocurrió un error de red al intentar guardar.");
+                    alert("Ocurrió un error de red al intentar guardar. Intenta nuevamente.");
+                    enviandoFinal = false;
+                    btnFinalizar.disabled = false;
+                    btnFinalizar.textContent = "Finalizar Reactivo";
                 });
 
             } catch (error) {
                 console.error("Error general al finalizar:", error);
+                enviandoFinal = false;
+                btnFinalizar.disabled = false;
+                btnFinalizar.textContent = "Finalizar Reactivo";
             }
         });
     }
 
-    // --- 2. CHAT SOCRÁTICO CON CONTEXTO DEL REACTIVO ---
+    // --- 2. CHAT SOCRÁTICO CON CONTEXTO DEL REACTIVO E INDICADOR DE CARGA ---
     const btnEnviarChat = document.getElementById("btn-enviar-chat");
     const promptAlumno = document.getElementById("prompt-alumno");
     const chatCaja = document.getElementById("chat-caja");
@@ -81,10 +111,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let historialChat = [];
         let tiempoUltimaInteraccion = Date.now();
         let contextoEnviado = false;
+        let enviandoConsulta = false;
 
-        btnEnviarChat.addEventListener("click", () => {
+        function enviarConsultaChat() {
+            if (enviandoConsulta) return;
+
             const texto = promptAlumno.value.trim();
             if (!texto) return;
+
+            enviandoConsulta = true;
+            btnEnviarChat.disabled = true;
+            btnEnviarChat.textContent = "Enviando...";
 
             const ahora = Date.now();
             const latenciaMs = ahora - tiempoUltimaInteraccion;
@@ -95,6 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
             divAlumno.textContent = texto;
             chatCaja.appendChild(divAlumno);
             promptAlumno.value = "";
+            chatCaja.scrollTop = chatCaja.scrollHeight;
+
+            // Burbuja temporal mientras responde el tutor
+            const divPensando = document.createElement("div");
+            divPensando.className = "mensaje-ia";
+            divPensando.style.fontStyle = "italic";
+            divPensando.style.opacity = "0.75";
+            divPensando.textContent = "El tutor está analizando tu consulta...";
+            chatCaja.appendChild(divPensando);
             chatCaja.scrollTop = chatCaja.scrollHeight;
 
             if (!contextoEnviado && typeof contextoPregunta !== 'undefined') {
@@ -119,6 +165,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(res => res.json())
             .then(data => {
+                if (divPensando.parentNode) divPensando.remove();
+
                 if (data.respuesta) {
                     const divIa = document.createElement("div");
                     divIa.className = "mensaje-ia";
@@ -130,12 +178,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else if (data.error) {
                     const divError = document.createElement("div");
                     divError.className = "mensaje-ia";
-                    divError.style.color = "red";
+                    divError.style.color = "#b91c1c";
                     divError.textContent = data.error;
                     chatCaja.appendChild(divError);
+                    chatCaja.scrollTop = chatCaja.scrollHeight;
                 }
             })
-            .catch(err => console.error("Error en chat:", err));
+            .catch(err => {
+                if (divPensando.parentNode) divPensando.remove();
+                console.error("Error en chat:", err);
+                const divError = document.createElement("div");
+                divError.className = "mensaje-ia";
+                divError.style.color = "#b91c1c";
+                divError.textContent = "Error de conexión con el tutor. Intenta de nuevo.";
+                chatCaja.appendChild(divError);
+            })
+            .finally(() => {
+                enviandoConsulta = false;
+                btnEnviarChat.disabled = false;
+                btnEnviarChat.textContent = "Consultar";
+                promptAlumno.focus();
+            });
+        }
+
+        btnEnviarChat.addEventListener("click", enviarConsultaChat);
+
+        // Permitir enviar con Enter (Shift + Enter hace salto de línea)
+        promptAlumno.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                enviarConsultaChat();
+            }
         });
     }
 

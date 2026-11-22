@@ -21,24 +21,43 @@
 
     <div class="contenedor-inicio">
         <div class="bienvenida-box">
-            <h1>Módulo de Evaluación de Lógica de Programación</h1>
-            <p>Se han asignado <strong>5 reactivos personalizados</strong> para tu sesión. Resuélvelos con el apoyo del tutor inteligente socrático.</p>
+            <div class="bienvenida-header">
+                <h1>Módulo de Evaluación de Lógica de Programación</h1>
+                <span class="progreso-pill">Avance: {{ respondidas | length }} / {{ preguntas | length }}</span>
+            </div>
+            <p>Se han asignado <strong>{{ preguntas | length }} reactivos personalizados</strong> para tu sesión. Resuélvelos con el apoyo del tutor inteligente socrático.</p>
+
+            {% if preguntas | length > 0 and respondidas | length >= preguntas | length %}
+                <div class="aviso-finalizado">
+                    <strong>Evaluación completada:</strong> Has enviado todos tus reactivos asignados y tus respuestas quedaron registradas. Puedes cerrar sesión si tu docente lo indica.
+                </div>
+            {% endif %}
         </div>
         
         <div class="lista-preguntas">
             {% for pregunta in preguntas %}
-                <a href="/examen/{{ pregunta.id }}" class="card-pregunta {% if pregunta.id in respondidas %}completada{%endif%}">
-                    <div class="card-info">
-                        <h3>
-                            Reactivo ID {{ pregunta.id }}: {{ pregunta.titulo }}
-                            {% if pregunta.id in respondidas %}
+                {% if pregunta.id in respondidas %}
+                    <div class="card-pregunta completada bloqueada" aria-disabled="true">
+                        <div class="card-info">
+                            <h3>
+                                Reactivo ID {{ pregunta.id }}: {{ pregunta.titulo }}
                                 <span class="texto-respondida">✓ Respondida / Evaluada</span>
-                            {% endif %}
-                        </h3>
-                        <p>{{ pregunta.enunciado[:90] }}...</p>
+                            </h3>
+                            <p>{{ pregunta.enunciado[:90] }}...</p>
+                        </div>
+                        <span class="etiqueta-tipo">Tipo {{ pregunta.tipo }}</span>
                     </div>
-                    <span class="etiqueta-tipo">Tipo {{ pregunta.tipo }}</span>
-                </a>
+                {% else %}
+                    <a href="/examen/{{ pregunta.id }}" class="card-pregunta">
+                        <div class="card-info">
+                            <h3>
+                                Reactivo ID {{ pregunta.id }}: {{ pregunta.titulo }}
+                            </h3>
+                            <p>{{ pregunta.enunciado[:90] }}...</p>
+                        </div>
+                        <span class="etiqueta-tipo">Tipo {{ pregunta.tipo }}</span>
+                    </a>
+                {% endif %}
             {% endfor %}
         </div>
     </div>

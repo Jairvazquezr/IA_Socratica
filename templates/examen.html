@@ -31,6 +31,9 @@
 
             {% elif pregunta.tipo == 3 %}
                 <!-- Tipo 3: Problemas de Parsons (Drag & Drop) -->
+                <p style="font-size: 0.9rem; color: #415a77; font-weight: 600; margin-bottom: 0.5rem;">
+                    ↕ Arrastra y suelta las líneas de código hacia arriba o hacia abajo para ordenarlas correctamente:
+                </p>
                 <div id="parsons-container" class="parsons-container">
                     {% for linea in pregunta.lineas_desordenadas %}
                         <div class="linea-codigo" draggable="true">{{ linea }}</div>
@@ -52,7 +55,7 @@
             </div>
             
             <div class="chat-input-area">
-                <textarea id="prompt-alumno" placeholder="Explica tu duda o pide una pista conceptual..."></textarea>
+                <textarea id="prompt-alumno" placeholder="Explica tu duda o pide una pista conceptual... (Enter para enviar)"></textarea>
                 <button id="btn-enviar-chat">Consultar</button>
             </div>
 
