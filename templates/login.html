@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - Evaluación Telemétrica ITM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="body-login">
+    <div class="contenedor-login">
+        <div class="header-login-tec">
+            <h2>Tecnológico Nacional de México</h2>
+            <h3>Instituto Tecnológico de Minatitlán</h3>
+        </div>
+        <div class="form-card">
+            <h2>Acceso a la Evaluación</h2>
+            <p>Ingresa tu matrícula institucional (3er Semestre) para registrar tu sesión y asignar tu bloque de reactivos.</p>
+            
+            <form action="/login" method="POST">
+                <div class="input-grupo">
+                    <label for="matricula">Número de Matrícula:</label>
+                    <input type="text" id="matricula" name="matricula" required placeholder="Ej. L23230263">
+                </div>
+                
+                <button type="submit" class="btn-primario btn-full">Iniciar Evaluación</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

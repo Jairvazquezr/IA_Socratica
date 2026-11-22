@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Telemétrica - TecNM ITM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header-institucional">
+        <div class="logos-container">
+            <div class="logo-placeholder">TecNM</div>
+            <div class="info-tec">
+                <h2>Tecnológico Nacional de México</h2>
+                <h3>Instituto Tecnológico de Minatitlán</h3>
+                <p>Matrícula activa: <strong>{{ matricula }}</strong> | <a href="/logout" style="color: #94a3b8; text-decoration: underline;">Cerrar Sesión</a></p>
+            </div>
+            <div class="logo-placeholder">ITM</div>
+        </div>
+    </header>
+
+    <div class="contenedor-inicio">
+        <div class="bienvenida-box">
+            <h1>Módulo de Evaluación de Lógica de Programación</h1>
+            <p>Se han asignado <strong>5 reactivos personalizados</strong> para tu sesión. Resuélvelos con el apoyo del tutor inteligente socrático.</p>
+        </div>
+        
+        <div class="lista-preguntas">
+            {% for pregunta in preguntas %}
+                <a href="/examen/{{ pregunta.id }}" class="card-pregunta {% if pregunta.id in respondidas %}completada{%endif%}">
+                    <div class="card-info">
+                        <h3>
+                            Reactivo ID {{ pregunta.id }}: {{ pregunta.titulo }}
+                            {% if pregunta.id in respondidas %}
+                                <span class="texto-respondida">✓ Respondida / Evaluada</span>
+                            {% endif %}
+                        </h3>
+                        <p>{{ pregunta.enunciado[:90] }}...</p>
+                    </div>
+                    <span class="etiqueta-tipo">Tipo {{ pregunta.tipo }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,319 @@
+[
+  {
+    "id": 1,
+    "tipo": 1,
+    "titulo": "Resolución de Sombreamiento de Variables (Scope)",
+    "enunciado": "Determine con exactitud la salida numérica que producirá la ejecución de este programa.",
+    "codigo_base": "public class PruebaScope {\n    static int valor = 8;\n    static void calcular() {\n        int valor = 12;\n        valor = valor + 4;\n    }\n    public static void main(String[] args) {\n        valor = valor - 2;\n        calcular();\n        valor++;\n        System.out.print(valor);\n    }\n}",
+    "opciones": ["23", "7", "17", "15"],
+    "respuesta_correcta": "7"
+  },
+  {
+    "id": 2,
+    "tipo": 1,
+    "titulo": "Manipulación de Referencias y Arreglos",
+    "enunciado": "Identifique la secuencia exacta de valores impresos tras las mutaciones.",
+    "codigo_base": "public class PruebaArreglo {\n    public static void main(String[] args) {\n        int[] vector = {5, 10, 15, 20, 25};\n        int[] ptr = vector;\n        ptr[3] += 10;\n        System.out.print(ptr[1] + \", \" + vector[3]);\n    }\n}",
+    "opciones": ["10, 30", "20, 30", "15, 20", "30, 30"],
+    "respuesta_correcta": "10, 30"
+  },
+  {
+    "id": 3,
+    "tipo": 1,
+    "titulo": "Evaluación Condicional de Cortocircuito",
+    "enunciado": "Analice el flujo de ejecución. ¿Cuál es el valor final de la variable n?",
+    "codigo_base": "int m = 0;\nint n = 10;\nif (m != 0 && (n / m > 2)) {\n    n++;\n} else if (m == 0 || ++n > 12) {\n    n += 3;\n}\nSystem.out.print(n);",
+    "opciones": ["Excepción (División por Cero)", "14", "13", "10"],
+    "respuesta_correcta": "13"
+  },
+  {
+    "id": 4,
+    "tipo": 1,
+    "titulo": "Límites de Bucles Anidados (Off-by-One)",
+    "enunciado": "Realice la traza iterativa y determine el valor de acumulador.",
+    "codigo_base": "int acumulador = 0;\nfor (int i = 1; i < 4; i++) {\n    for (int j = i; j < 5; j++) {\n        acumulador += (j - i);\n    }\n}\nSystem.out.print(acumulador);",
+    "opciones": ["10", "14", "20", "6"],
+    "respuesta_correcta": "10"
+  },
+  {
+    "id": 5,
+    "tipo": 1,
+    "titulo": "Árboles de Recursión Acumulativa",
+    "enunciado": "Determine el estado final del acumulador retornado a la función principal.",
+    "codigo_base": "static int calcularNodo(int n) {\n    if (n <= 1) return n;\n    return calcularNodo(n - 1) + calcularNodo(n - 2) + 1;\n}\n// En el main: System.out.print(calcularNodo(4));",
+    "opciones": ["3", "5", "7", "9"],
+    "respuesta_correcta": "7"
+  },
+  {
+    "id": 6,
+    "tipo": 1,
+    "titulo": "Mutación Cíclica y Condicionales de Ruptura",
+    "enunciado": "Rastree los incrementos iterativos y determine qué valor emitirá el bloque de código al finalizar.",
+    "codigo_base": "int estado = 0;\nfor (int i = 2; i < 20; i += 2) {\n    if (i % 3 == 0) estado -= 2;\n    else estado += i;\n    \n    if (estado > 15) break;\n}\nSystem.out.print(estado);",
+    "opciones": ["22", "16", "14", "18"],
+    "respuesta_correcta": "22"
+  },
+  {
+    "id": 7,
+    "tipo": 1,
+    "titulo": "Procesamiento a Nivel de Bit",
+    "enunciado": "Realice la evaluación binaria escalonada e identifique la impresión.",
+    "codigo_base": "int x = 20;\nint y = 11;\nint z = x ^ y; \nint resultado = z & 24;\nSystem.out.print(resultado);",
+    "opciones": ["31", "0", "16", "24"],
+    "respuesta_correcta": "16"
+  },
+  {
+    "id": 8,
+    "tipo": 1,
+    "titulo": "Despacho Dinámico de Métodos (Polimorfismo)",
+    "enunciado": "Tomando en cuenta las reglas de polimorfismo en Java, determine qué se imprimirá.",
+    "codigo_base": "class ClaseA { void mostrar() { System.out.print(\"A\"); } }\nclass ClaseB extends ClaseA { void mostrar() { System.out.print(\"B\"); } }\n// En el main: ClaseA obj = new ClaseB(); obj.mostrar();",
+    "opciones": ["A", "B", "Error de Compilación", "AB"],
+    "respuesta_correcta": "B"
+  },
+  {
+    "id": 9,
+    "tipo": 1,
+    "titulo": "Preservación de Variables Estáticas",
+    "enunciado": "Trace la pila de ejecución recursiva. ¿Qué valor retorna la primera llamada?",
+    "codigo_base": "static int x = 0;\nstatic int contador(int n) {\n    x += n;\n    if (n > 0) contador(n - 1);\n    return x;\n}\n// En el main: System.out.print(contador(3));",
+    "opciones": ["3", "6", "0", "5"],
+    "respuesta_correcta": "6"
+  },
+  {
+    "id": 10,
+    "tipo": 1,
+    "titulo": "Fugas de Memoria Lógica",
+    "enunciado": "Diagnostique la gestión de memoria de esta clase.",
+    "codigo_base": "class GestorMemoria {\n    static ArrayList<Object> cacheGlobal = new ArrayList<>();\n    public void procesar() {\n        Object bloque = new Object[1000];\n        cacheGlobal.add(bloque);\n        bloque = new Object[500]; \n    }\n}",
+    "opciones": ["Error de compilación", "Fuga de memoria porque cacheGlobal retiene la primera referencia", "Fuga de memoria del segundo bloque", "Código seguro y optimizado"],
+    "respuesta_correcta": "Fuga de memoria porque cacheGlobal retiene la primera referencia"
+  },
+  {
+    "id": 11,
+    "tipo": 2,
+    "titulo": "Gestión de Inventario (Listas y Condicionales)",
+    "enunciado": "Implemente un método que reciba un ArrayList<String> con productos. Debe verificar manualmente (mediante un bucle for o while, prohibido usar .contains()) que el nuevo producto no exista ya en el historial. Si existe, imprima 'Duplicado'; si no, agréguelo.",
+    "codigo_base": "import java.util.ArrayList;\n\npublic class Inventario {\n    public void agregarProducto(ArrayList<String> historial, String nuevoProducto) {\n        // Escribe tu lógica aquí\n        \n    }\n}"
+  },
+  {
+    "id": 12,
+    "tipo": 2,
+    "titulo": "Manipulación de Cadenas (Bucles Inversos)",
+    "enunciado": "Implemente un método que reciba un String y lo devuelva invertido. Prohibido utilizar StringBuilder.reverse(). Debe resolverse iterando la cadena carácter por carácter con .charAt().",
+    "codigo_base": "public class Utilidades {\n    public String invertirCadena(String texto) {\n        String invertido = \"\";\n        // Escribe tu lógica aquí\n        \n        return invertido;\n    }\n}"
+  },
+  {
+    "id": 13,
+    "tipo": 2,
+    "titulo": "Validación de Pares (Algoritmia Clásica)",
+    "enunciado": "Desarrolle un método que reciba un String compuesto solo de '(' y ')'. El método debe iterar la cadena e indicar mediante un booleano si todos los paréntesis están correctamente balanceados, sin utilizar clases prefabricadas como Stack.",
+    "codigo_base": "public class Validador {\n    public boolean estanBalanceados(String cadena) {\n        // Escribe tu lógica aquí\n        \n        return false;\n    }\n}"
+  },
+  {
+    "id": 14,
+    "tipo": 2,
+    "titulo": "Filtrado y Clasificación (Arreglos)",
+    "enunciado": "Codifique un método que reciba un arreglo int[] con números mezclados. En un solo recorrido, separe los números en dos nuevos ArrayList<Integer>: uno para pares positivos y otro para impares negativos (ignore los ceros).",
+    "codigo_base": "import java.util.ArrayList;\n\npublic class Clasificador {\n    public void clasificarNumeros(int[] mezclados) {\n        ArrayList<Integer> paresPositivos = new ArrayList<>();\n        ArrayList<Integer> imparesNegativos = new ArrayList<>();\n        // Escribe tu lógica aquí\n        \n    }\n}"
+  },
+  {
+    "id": 15,
+    "tipo": 2,
+    "titulo": "Calculador de Descuentos (Múltiples Condiciones)",
+    "enunciado": "Diseñe el método calcularDescuento(int cantidad, double total, boolean esMartes). Si hay más de 5 artículos y el total > 1000, aplique 20% de descuento. Si hay menos de 5 artículos pero total > 1000, aplique 10%. Si es martes, sume un 5% extra a cualquier descuento previo (o aplique 5% si no tenía). Retorne el total final.",
+    "codigo_base": "public class Tienda {\n    public double calcularDescuento(int cantidad, double total, boolean esMartes) {\n        // Escribe tu lógica aquí\n        \n        return total;\n    }\n}"
+  },
+  {
+    "id": 16,
+    "tipo": 2,
+    "titulo": "Búsqueda Bidimensional (Matrices)",
+    "enunciado": "Escriba un método que reciba un char[][] tablero de 3x3 ('D' disponible, 'O' ocupado). Encuentre el primer asiento 'D' leyendo por filas, cámbielo a 'O' y retorne true. Si no hay asientos, retorne false.",
+    "codigo_base": "public class Cine {\n    public boolean reservarAsiento(char[][] tablero) {\n        // Escribe tu lógica aquí\n        \n        return false;\n    }\n}"
+  },
+  {
+    "id": 17,
+    "tipo": 2,
+    "titulo": "Recursividad Básica (Aritmética)",
+    "enunciado": "Programe el método recursivo sumarDigitos(int n) que calcule la suma de los dígitos de un número (ej. 451 = 10) usando división entera y módulo. Prohibido usar ciclos for o while y variables globales.",
+    "codigo_base": "public class Matematicas {\n    public int sumarDigitos(int n) {\n        // Escribe tu lógica aquí\n        \n        return 0;\n    }\n}"
+  },
+  {
+    "id": 18,
+    "tipo": 2,
+    "titulo": "Agrupación y Frecuencia (Mapas)",
+    "enunciado": "Desarrolle un método que reciba un String, cuente las repeticiones de cada carácter, y devuelva un HashMap<Character, Integer> que contenga únicamente los caracteres que aparecieron estrictamente más de dos veces.",
+    "codigo_base": "import java.util.HashMap;\n\npublic class Analizador {\n    public HashMap<Character, Integer> caracteresFrecuentes(String texto) {\n        HashMap<Character, Integer> frecuentes = new HashMap<>();\n        // Escribe tu lógica aquí\n        \n        return frecuentes;\n    }\n}"
+  },
+  {
+    "id": 19,
+    "tipo": 2,
+    "titulo": "Interacción de POO (Encapsulamiento)",
+    "enunciado": "Defina la clase CuentaBancaria con el atributo privado saldo. Implemente el método retirar(double cantidad) de forma segura: si se intenta retirar más del saldo disponible, la operación debe abortarse imprimiendo 'Fondos Insuficientes', evitando saldos negativos.",
+    "codigo_base": "public class CuentaBancaria {\n    private double saldo;\n    \n    public CuentaBancaria(double saldoInicial) {\n        this.saldo = saldoInicial;\n    }\n    \n    public void retirar(double cantidad) {\n        // Escribe tu lógica aquí\n        \n    }\n}"
+  },
+  {
+    "id": 20,
+    "tipo": 2,
+    "titulo": "Rotación de Vectores (In-Place)",
+    "enunciado": "Implemente un método que reciba un int[] arreglo de 5 posiciones y desplace todos sus elementos una posición a la derecha. El elemento en el último índice debe moverse al índice 0. Prohibido usar arreglos auxiliares o ArrayList.",
+    "codigo_base": "public class Rotacion {\n    public void rotarDerecha(int[] arreglo) {\n        // Escribe tu lógica aquí\n        \n    }\n}"
+  },
+  {
+    "id": 21,
+    "tipo": 3,
+    "titulo": "Sumatoria de Arreglo",
+    "enunciado": "Ordene las líneas para crear un método que sume los elementos de un arreglo arr. Hay una línea sobrante (distractor) que no debe usarse.",
+    "lineas_desordenadas": [
+      "return suma;",
+      "for (int i = 0; i < arr.length; i++) {",
+      "int suma = 0;",
+      "suma += arr[i];",
+      "}",
+      "for (int i = 1; i <= arr.length; i++) { // (Distractor)"
+    ],
+    "orden_correcto": [2, 1, 3, 4, 0]
+  },
+  {
+    "id": 22,
+    "tipo": 3,
+    "titulo": "Intercambio de Variables (Swap)",
+    "enunciado": "Ordene las líneas para intercambiar los valores de las variables a y b.",
+    "lineas_desordenadas": [
+      "a = b;",
+      "b = a; // (Distractor)",
+      "int temp = a;",
+      "b = temp;"
+    ],
+    "orden_correcto": [2, 0, 3]
+  },
+  {
+    "id": 23,
+    "tipo": 3,
+    "titulo": "Encontrar el Máximo",
+    "enunciado": "Ordene las líneas para encontrar el valor máximo en un arreglo numeros (asuma que el arreglo tiene al menos 1 elemento).",
+    "lineas_desordenadas": [
+      "if (numeros[i] > maximo) {",
+      "int maximo = numeros[0];",
+      "maximo = numeros[i];",
+      "int maximo = 0; // (Distractor)",
+      "for (int i = 1; i < numeros.length; i++) {",
+      "} // (cierra if)",
+      "} // (cierra for)",
+      "return maximo;"
+    ],
+    "orden_correcto": [1, 4, 0, 2, 5, 6, 7]
+  },
+  {
+    "id": 24,
+    "tipo": 3,
+    "titulo": "Factorial Recursivo",
+    "enunciado": "Estructure una función recursiva para calcular el factorial de un número n.",
+    "lineas_desordenadas": [
+      "return n * factorial(n - 1);",
+      "return n * factorial(n); // (Distractor)",
+      "if (n <= 1) {",
+      "return 1;",
+      "}"
+    ],
+    "orden_correcto": [2, 3, 4, 0]
+  },
+  {
+    "id": 25,
+    "tipo": 3,
+    "titulo": "Validar Número Primo",
+    "enunciado": "Ordene el bloque para verificar si un número n (mayor a 1) es primo.",
+    "lineas_desordenadas": [
+      "for (int i = 2; i < n; i++) {",
+      "return false;",
+      "if (n % i == 0) {",
+      "return true; // (Distractor)",
+      "}",
+      "}",
+      "return true;"
+    ],
+    "orden_correcto": [0, 2, 1, 4, 5, 6]
+  },
+  {
+    "id": 26,
+    "tipo": 3,
+    "titulo": "Recorrido de Matriz (Suma de Diagonal)",
+    "enunciado": "Ordene las líneas para calcular la suma de la diagonal principal de una matriz cuadrada mat.",
+    "lineas_desordenadas": [
+      "suma += mat[i][j]; // (Distractor)",
+      "int suma = 0;",
+      "for (int i = 0; i < mat.length; i++) {",
+      "suma += mat[i][i];",
+      "}",
+      "return suma;"
+    ],
+    "orden_correcto": [1, 2, 3, 4, 5]
+  },
+  {
+    "id": 27,
+    "tipo": 3,
+    "titulo": "Invertir Arreglo (In-Place)",
+    "enunciado": "Ordene las líneas para invertir el contenido de un arreglo arr usando dos punteros/índices (inicio y fin).",
+    "lineas_desordenadas": [
+      "arr[fin] = arr[inicio]; // (Distractor)",
+      "while (inicio < fin) {",
+      "int temp = arr[inicio];",
+      "arr[inicio] = arr[fin];",
+      "arr[fin] = temp;",
+      "inicio++; fin--;",
+      "}"
+    ],
+    "orden_correcto": [1, 2, 3, 4, 5, 6]
+  },
+  {
+    "id": 28,
+    "tipo": 3,
+    "titulo": "Contar Vocales (String)",
+    "enunciado": "Ordene las líneas para contar las vocales (minúsculas) de un String texto.",
+    "lineas_desordenadas": [
+      "char c = texto.charAt(i);",
+      "if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {",
+      "int contador = 0;",
+      "contador++;",
+      "for (int i = 0; i < texto.length(); i++) {",
+      "for (char c : texto) { // (Distractor)",
+      "}",
+      "}",
+      "return contador;"
+    ],
+    "orden_correcto": [2, 4, 0, 1, 3, 6, 7, 8]
+  },
+  {
+    "id": 29,
+    "tipo": 3,
+    "titulo": "Patrón Singleton (POO)",
+    "enunciado": "Ordene las líneas para implementar un constructor y método de acceso del patrón Singleton básico.",
+    "lineas_desordenadas": [
+      "if (instancia == null) {",
+      "private static MiClase instancia;",
+      "public static MiClase getInstance() {",
+      "instancia = new MiClase();",
+      "}",
+      "public MiClase() {} // (Distractor)",
+      "private MiClase() {}",
+      "return instancia;",
+      "}"
+    ],
+    "orden_correcto": [1, 6, 2, 0, 3, 4, 7, 8]
+  },
+  {
+    "id": 30,
+    "tipo": 3,
+    "titulo": "Imprimir Lista Enlazada",
+    "enunciado": "Ordene las líneas para recorrer e imprimir los valores de una lista enlazada a partir de su nodo cabeza.",
+    "lineas_desordenadas": [
+      "while (actual != null) {",
+      "System.out.println(actual.valor);",
+      "Nodo actual = cabeza;",
+      "actual = actual.siguiente;",
+      "}",
+      "actual = cabeza.siguiente; // (Distractor)"
+    ],
+    "orden_correcto": [2, 0, 1, 3, 4]
+  }
+]

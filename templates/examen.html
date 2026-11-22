@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactivo {{ pregunta.id }} - TecNM ITM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="contenedor-principal">
+        <!-- Panel Izquierdo: Reactivo y Espacio de Trabajo -->
+        <div class="panel-izquierdo">
+            <a href="/" class="btn-volver">← Volver al inicio</a>
+            <h2>Reactivo {{ pregunta.id }}: {{ pregunta.titulo }}</h2>
+            <p class="enunciado">{{ pregunta.enunciado }}</p>
+            
+            {% if pregunta.tipo == 1 %}
+                <!-- Tipo 1: Opción Múltiple / Lectura -->
+                <pre class="codigo-lectura"><code>{{ pregunta.codigo_base }}</code></pre>
+                <div class="opciones-contenedor">
+                    {% for opcion in pregunta.opciones %}
+                        <label class="opcion-radio">
+                            <input type="radio" name="respuesta_t1" value="{{ opcion }}"> {{ opcion }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+
+            {% elif pregunta.tipo == 2 %}
+                <!-- Tipo 2: Código Abierto (Editor) -->
+                <textarea id="editor-codigo" spellcheck="false" placeholder="Escribe tu código aquí...">{{ pregunta.codigo_base }}</textarea>
+
+            {% elif pregunta.tipo == 3 %}
+                <!-- Tipo 3: Problemas de Parsons (Drag & Drop) -->
+                <div id="parsons-container" class="parsons-container">
+                    {% for linea in pregunta.lineas_desordenadas %}
+                        <div class="linea-codigo" draggable="true">{{ linea }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <button id="btn-enviar-codigo" class="btn-primario">Finalizar Reactivo</button>
+        </div>
+
+        <!-- Panel Derecho: Chat Socrático y Justificación -->
+        <div class="panel-derecho">
+            <div class="cabecera-chat">
+                <h3>Tutor IA Socrático</h3>
+            </div>
+            
+            <div id="chat-caja" class="chat-caja">
+                <div class="mensaje-ia">Hola, soy tu tutor socrático. Estoy aquí para guiarte. ¿En qué parte de este problema te has atascado?</div>
+            </div>
+            
+            <div class="chat-input-area">
+                <textarea id="prompt-alumno" placeholder="Explica tu duda o pide una pista conceptual..."></textarea>
+                <button id="btn-enviar-chat">Consultar</button>
+            </div>
+
+            <!-- Apartado de Justificación integrado en el panel derecho -->
+            <div class="caja-justificacion">
+                <h4>Justifica tu respuesta:</h4>
+                <textarea id="justificacion-alumno" placeholder="Explica tu razonamiento lógicamente..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datos de Flask en formato JSON puro (sin subrayados rojos en VS Code) -->
+    <script id="datos-pregunta" type="application/json">
+        {{ pregunta | tojson }}
+    </script>
+
+    <script>
+        const preguntaData = JSON.parse(document.getElementById('datos-pregunta').textContent);
+        const idPreguntaActual = preguntaData.id;
+        const tipoPregunta = preguntaData.tipo;
+        const contextoPregunta = `Reactivo ID ${preguntaData.id}: "${preguntaData.titulo}". Enunciado: ${preguntaData.enunciado}. Código base: ${preguntaData.codigo_base || ''}`;
+    </script>
+    <script src="{{ url_for('static', filename='js/telemetria.js') }}"></script>
+</body>
+</html>
