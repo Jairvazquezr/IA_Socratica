@@ -7,13 +7,13 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
+load_dotenv()  # Carga las variables desde tu archivo .env
+
 app = Flask(__name__)
 app.secret_key = 'itm_socratic_ai_secret_key_2026'
 
-
-load_dotenv()  # Carga las variables desde tu archivo .env
+# Cliente oficial de OpenAI leyendo la clave desde .env
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-
 
 # Modelo rápido, económico y preciso para tutoría socrática en tiempo real
 MODELO_OPENAI = "gpt-4o-mini"
