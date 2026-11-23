@@ -3,17 +3,20 @@ import sqlite3
 import json
 import random
 import time
-from google import genai
-from google.genai import types
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
 app = Flask(__name__)
 app.secret_key = 'itm_socratic_ai_secret_key_2026'
 
-# Cliente oficial de Gemini (Reemplaza con tu nueva API Key de pago de Google AI Studio)
-client = genai.Client(api_key="AQ.Ab8RN6KJ1ve8UMmx23deGo2FgwP7n317d2Okx-ux3Go42S6-sg")
 
-# Modelo vigente recomendado para baja latencia y alta concurrencia
-MODELO_GEMINI = "gemini-4-hydrogen"
+load_dotenv()  # Carga las variables desde tu archivo .env
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+
+# Modelo rápido, económico y preciso para tutoría socrática en tiempo real
+MODELO_OPENAI = "gpt-4o-mini"
 
 SYSTEM_PROMPT = """Eres un tutor socrático para estudiantes de Ingeniería en Sistemas Computacionales del ITM. 
 Nunca devuelvas código completo. 
@@ -131,7 +134,6 @@ def examen(id_pregunta):
     if id_pregunta not in session.get('preguntas_asignadas_ids', []):
         return redirect(url_for('index'))
 
-    # Verificar si el alumno ya envió este reactivo para evitar sobrescrituras
     conn = get_db_connection()
     ya_respondida = conn.execute(
         'SELECT id_resultado FROM resultados_evaluacion WHERE id_estudiante = ? AND id_pregunta = ?',
@@ -150,7 +152,7 @@ def examen(id_pregunta):
         
     return render_template('examen.html', pregunta=pregunta_actual)
 
-# Ruta Proxy Inverso para Gemini con reintentos automáticos
+# Ruta Proxy Inverso para OpenAI con reintentos automáticos
 @app.route('/api/chat', methods=['POST'])
 def chat_socratico():
     if 'id_estudiante' not in session:
@@ -163,29 +165,33 @@ def chat_socratico():
     id_pregunta = datos.get('id_pregunta')
     latencia = datos.get('latencia_ms', 0)
 
-    contenidos = []
+    # Construir mensajes en formato estándar de OpenAI
+    mensajes = [{"role": "system", "content": SYSTEM_PROMPT}]
     for msg in historial:
-        rol = "user" if msg["role"] == "user" else "model"
-        contenidos.append(types.Content(role=rol, parts=[types.Part.from_text(text=msg["content"])]))
-    contenidos.append(types.Content(role="user", parts=[types.Part.from_text(text=prompt_alumno)]))
+        rol = "user" if msg["role"] == "user" else "assistant"
+        mensajes.append({"role": rol, "content": msg["content"]})
+
+    # Asegurar que el prompt actual esté incluido si no venía al final del historial
+    if not mensajes or mensajes[-1]["content"] != prompt_alumno:
+        mensajes.append({"role": "user", "content": prompt_alumno})
 
     texto_ia = None
     ultimo_error = ""
 
-    # Intentar hasta 3 veces si ocurre algún pico temporal de red o cuota
+    # Intentar hasta 3 veces ante cualquier pico temporal de red
     for intento in range(3):
         try:
-            respuesta = client.models.generate_content(
-                model=MODELO_GEMINI,
-                contents=contenidos,
-                config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT, temperature=0.3)
+            respuesta = client.chat.completions.create(
+                model=MODELO_OPENAI,
+                messages=mensajes,
+                temperature=0.3
             )
-            texto_ia = respuesta.text
+            texto_ia = respuesta.choices[0].message.content
             break
         except Exception as e:
             ultimo_error = str(e)
-            print(f"Intento {intento + 1} fallido con Gemini: {ultimo_error}")
-            if "503" in ultimo_error or "UNAVAILABLE" in ultimo_error or "429" in ultimo_error:
+            print(f"Intento {intento + 1} fallido con OpenAI: {ultimo_error}")
+            if "503" in ultimo_error or "429" in ultimo_error or "timeout" in ultimo_error.lower():
                 time.sleep(2 * (intento + 1))
             else:
                 break
