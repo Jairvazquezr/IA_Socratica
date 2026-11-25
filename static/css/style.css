@@ -31,6 +31,15 @@ body {
     font-size: 0.9rem;
     letter-spacing: 1px;
 }
+.logo-img {
+    height: 62px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
 .info-tec h2 { margin: 0; font-size: 1.1rem; color: #e0e1dd; }
 .info-tec h3 { margin: 2px 0; font-size: 1rem; color: #ffffff; font-weight: 600; }
 .info-tec p { margin: 4px 0 0 0; font-size: 0.8rem; color: #94a3b8; }
@@ -189,4 +198,130 @@ body {
     transform: none;
     box-shadow: none;
     border-color: #cbd5e1;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    .header-institucional {
+        padding: 0.9rem 1rem;
+    }
+
+    .logos-container {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .logo-img {
+        height: 46px;
+    }
+
+    .contenedor-inicio {
+        margin: 1.2rem auto;
+        padding: 0 0.75rem;
+    }
+
+    .bienvenida-box {
+        padding: 1rem;
+    }
+
+    .card-pregunta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 1rem;
+    }
+
+    /* En celular, pantalla apilada en vez de dividida */
+    .contenedor-principal {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
+    .panel-izquierdo,
+    .panel-derecho {
+        flex: none;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        padding: 1rem;
+        border-left: none;
+    }
+
+    .panel-derecho {
+        border-top: 2px solid #cbd5e1;
+    }
+
+    #editor-codigo {
+        min-height: 210px;
+        font-size: 13px;
+    }
+
+    .linea-codigo {
+        padding: 12px;
+        font-size: 0.92rem;
+        touch-action: none;
+    }
+
+    .chat-caja {
+        max-height: 280px;
+        padding: 0.9rem;
+    }
+
+    .chat-input-area {
+        padding: 0.75rem;
+    }
+
+    #prompt-alumno {
+        height: 48px;
+    }
+
+    .btn-primario {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.75rem;
+    }
+
+    .body-login {
+        height: auto;
+        min-height: 100vh;
+        padding: 1rem 0;
+    }
+
+    .form-card {
+        padding: 1.3rem;
+    }
+}
+
+.justificacion-acciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-secundario {
+    background: #1b263b;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secundario:hover {
+    background: #415a77;
+}
+
+.estado-justificacion {
+    font-size: 0.85rem;
+    color: #2a9d8f;
+    font-weight: 600;
 }

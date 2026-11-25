@@ -1,0 +1,423 @@
+﻿Matricula,Semestre,ID_Pregunta,Respuesta_Codigo_Final,Justificacion_Alumno,Tiempo_Segundos
+26230476,3er Semestre,4,30,"Se suma, creo",14
+26230476,3er Semestre,8,8,Se suma,103
+26230503,3er Semestre,11,"public class Calendario {67
+    public String obtenerDia(int numero) {67
+        // Escribe tu estructura switch aquí
+        
+    }
+}67",67676767,28
+26230503,3er Semestre,18,"public class Recursion {2
+    public int sumaNaturales(int n) {1
+        // Escribe tu caso base y caso recursivo
+        
+    }4
+}2",Para sumar los números naturales,105
+26230503,3er Semestre,20,"class Nodo {
+    int valor;
+    Nodo siguiente;
+    Nodo(int valor) { this.valor = valor; }
+}
+67
+public class ListaSimple {
+    public int contarNodos(Nodo cabeza) {
+        // Escribe tu lógica aquí
+ 67       
+    }
+}67",67676767,69
+26230503,3er Semestre,29,"nuevo.siguiente = cabeza;
+Nodo nuevo = new Nodo(dato);
+cabeza = nuevo;
+cabeza.siguiente = nuevo; // (Distractor)",Namás,113
+26230503,3er Semestre,30,"}
+if (arr[j] > arr[j + 1]) {
+arr[j + 1] = aux;
+arr[j] = arr[j + 1];
+int aux = arr[j];",676767667,18
+26230512,3er Semestre,2,30,30 es la respuesta,243
+26230512,3er Semestre,5,24,Es la respuesta correcta,16
+26230512,3er Semestre,16,"public class Cuenta {
+    private double saldo;
+    public Cuenta(double saldoInicial) { this.saldo = saldoInicial; }
+    public void depositar(double monto) {
+        // Escribe tu lógica aquí
+        public class Cuenta {
+    private double saldo;
+
+    public Cuenta(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public void depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
+        }
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+}
+    }
+    public double getSaldo() { return saldo; }
+}",Es la respuesta correcta,175
+26230512,3er Semestre,18,"public class Recursion {
+    public int sumaNaturales(int n) {
+        // Escribe tu caso base y caso recursivo
+        Int a=1;
+        Int b=1;
+        Suma =0
+  Suma= b+a
+Else 
+  5<0 
+ 
+    }
+}",Hice lo que pude,523
+26230544,3er Semestre,2,18,Por que el siclo for recorre los números del siclo del 1 al 15,400
+26230544,3er Semestre,15,"public class Producto {
+    // Declara atributos, constructor y getPrecio()
+    
+}
+public class Producto {
+    private String nombre;
+    private double precio;
+
+    public Producto(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+}
+","private String nombre; declara el atributo nombre como privado.
+private double precio; declara el precio como privado.
+Producto(String nombre, double precio) es el constructor que inicializa los atributos.
+getPrecio() devuelve el precio del producto.",77
+26230544,3er Semestre,22,"if (n % 2 == 0) {
+return ""Par"";
+} else {
+return ""Impar"";
+}","El operador % obtiene el residuo de una división. Si al dividir n entre 2 el residuo es 0, el número es par; de lo contrario, es impar.",56
+26230544,3er Semestre,26,"class Perro extends Animal {
+public Perro(String nombre) {
+super(nombre);
+}
+}","extends Animal indica que la clase Perro hereda de Animal.
+public Perro(String nombre) declara el constructor.
+super(nombre) llama al constructor de la clase padre (Animal) y le envía el nombre.
+Las llaves cierran correctamente el constructor y la clase.",60
+26230544,3er Semestre,30,"if (arr[j] > arr[j + 1]) {
+int aux = arr[j];
+arr[j] = arr[j + 1];
+arr[j + 1] = aux;
+}","Se utiliza el método de ordenamiento burbuja. Primero se comparan dos elementos consecutivos. Si el primero es mayor que el segundo, se intercambian utilizando una variable auxiliar llamada aux.
+Así, los números más pequeños van quedando antes que los más grandes, ordenando el arreglo de menor a mayor.",56
+26230551,3er Semestre,13,"public class Tablero {
+    public int sumarFila(int[][] matriz, int fila) {
+        // Escribe tu lógica aquí
+        
+    } nose
+}",la vdd no se nd de el reactivo,233
+26230552,3er Semestre,4,20,"hay un 2 ahi, pues es un 2, pero con un 0",54
+26230552,3er Semestre,8,16,esta potenciado a la 2,40
+26230552,3er Semestre,15,"public class Producto {
+    // Declara atributos, constructor y getPrecio()
+    
+}",67676767,143
+26230552,3er Semestre,16,"public class Cuenta {
+    private double saldo;
+    public Cuenta(double saldoInicial) { this.saldo = saldoInicial; }
+    public void depositar(double monto) {
+        // Escribe tu lógica aquí
+        
+    }
+    public double getSaldo() { return saldo; }
+}",ya mero encuentro el token de fornite we,67
+26230552,3er Semestre,20,"class Nodo {
+    int valor;
+    Nodo siguiente;
+    Nodo(int valor) { this.valor = valor; }
+}
+
+public class ListaSimple {
+    public int contarNodos(Nodo cabeza) {
+        // profesora, no quiero ir a clases, lo mio es el circo we
+        
+    }
+}",cumple con todo lo que dices,123
+L25230926,3er Semestre,5,Error de compilacion,Al parecer no viene ninguna condición,203
+L25230926,3er Semestre,9,30,El límite es 30,101
+L25230926,3er Semestre,10,A-B,Salen primero por entrar primero,240
+L25230926,3er Semestre,14,"public class Promedios {
+    public double calcularPromedio(int a, int b, int c, int operación) {
+        Operación = (a+b+c)/2
+        Print(""tu promedio es:""operacion)
+    }
+}",Según es calcular promedio y luego imprimir promedio,532
+L26230485,3er Semestre,2,9,Seria el resultado de la operación,583
+L26230488,3er Semestre,6,10,Es la que creo yo,69
+L26230488,3er Semestre,22,"} else {
+}
+if (n % 2 == 0) {
+return ""Impar"";
+return ""Par"";",Es el orden que yo creo,35
+L26230488,3er Semestre,23,"System.out.println(arr[i]);
+while (i < arr.length) {
+while (i <= arr.length) { // (Distractor)
+int i = 0;
+i++;
+}",Es la respuesta que yo creo,46
+L26230488,3er Semestre,27,"public abstract class Figura {
+public abstract double calcularArea();
+public void calcularArea() {} // (Distractor)
+}",Es el orden que yo creo,18
+L26230488,3er Semestre,28,"System.out.println(n);
+if (n <= 0) return;
+void cuentaRegresiva(int n) {
+cuentaRegresiva(n - 1);
+}",Es el orden quebyo creo,21
+L26230490,3er Semestre,2,18,"Se inicia desde el 1 y como el residuo de 1/2 es diferente a 0 se guarda 1*2 en suma y sigue el ciclo evitando el número 2 y 4, de esta forma los números que pasarían serían el 1,3 y 5 por un residuo diferente a 0, se multiplicarían por 2 y se irían sumando los resultados",265
+L26230490,3er Semestre,17,"class Empleado {
+    protected String nombre;
+    public Empleado(String nombre) { this.nombre = nombre; }
+}
+
+class Desarrollador extends Empleado {
+    // Completa el atributo, constructor y método
+    
+}","No hemos visto el tema de programación orientada a objetos, se supone que lo veremos el siguiente semestre entonces en este momento no soy capaz ni he visto nada relacionado a este tema, perdón.",45
+L26230490,3er Semestre,21,"int area = base + altura; // (Distractor)
+int area = base * altura;
+return area;","El distractor no se ocupa aunque también hay cierto detalle que no se definieron ni la base ni la altura pero fuera de eso, se define el área como entero y al final se retorna el resultado",252
+L26230490,3er Semestre,27,"public abstract class Figura {
+public abstract double calcularArea();
+}
+public void calcularArea() {} // (Distractor)","Primero se define la clase y al abrir paréntesis se indica finalmente que dentro de esa clase se va definiendo un método abstracto, lo último es un distractor",80
+L26230490,3er Semestre,28,"void cuentaRegresiva(int n) {
+cuentaRegresiva(n - 1);
+if (n <= 0) return;
+System.out.println(n);
+}","Primero se define la cuenta regresiva para luego ir restando 1 a n, al final se hace el cuestionamiento si n es menor o igual a 0 retorna n y al final se imprime me parece",123
+L26230495,3er Semestre,5,Error de compilacion,No está main,21
+L26230495,3er Semestre,12,"public class Evaluacion {
+    public int contarAprobados(int[] notas) {
+        // Escribe tu lógica aquí
+        
+    }
+}","public class Evaluacion {
+    public int contarAprobados(int[] notas) {
+        int contador = 0;
+
+        for (int nota : notas) {
+            if (nota >= 70) {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
+}",66
+L26230495,3er Semestre,16,"public class Cuenta {
+    private double saldo;
+    public Cuenta(double saldoInicial) { this.saldo = saldoInicial; }
+    public void depositar(double monto) {
+        // Escribe tu lógica aquí
+        
+    }
+    public double getSaldo() { return saldo; }
+}","public class Cuenta {
+    private double saldo;
+
+    public Cuenta(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public void depositar(double monto) {
+        if (monto > 0) {
+            this.saldo += monto;
+        }
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+}",35
+L26230495,3er Semestre,20,"class Nodo {
+    int valor;
+    Nodo siguiente;
+    Nodo(int valor) { this.valor = valor; }
+}
+
+public class ListaSimple {
+    public int contarNodos(Nodo cabeza) {
+        // Escribe tu lógica aquí
+        
+    }
+}","public class ListaSimple {
+    public int contarNodos(Nodo cabeza) {
+        int contador = 0;
+        Nodo actual = cabeza;
+
+        while (actual != null) {
+            contador++;
+            actual = actual.siguiente;
+        }
+
+        return contador;
+    }
+}",38
+L26230495,3er Semestre,30,"if (arr[j] > arr[j + 1]) {
+int aux = arr[j];
+arr[j] = arr[j + 1];
+arr[j + 1] = aux;
+}",Listo,53
+L26230507,3er Semestre,9,10,"Pues porque si va de 10,20 y 30 al momento de desapilar quedaría 30,20,10",137
+L26230507,3er Semestre,13,"public class Tablero {
+    public int sumarFila(int[][] matriz, int fila) {
+        // Apenas estamos iniciando el tema de matriz
+        
+    }
+}","No hemos llegado a ese tema, apenas vamos a iniciar el tema de matriz",108
+L26230507,3er Semestre,17,"class Empleado {
+    protected String nombre;
+    public Empleado(String nombre) { this.nombre = nombre; }
+}
+
+class Desarrollador extends Empleado {
+    // Completa el atributo, constructor y método
+    
+}","No hemos visto ese tema, por lo que no puedo contestar está pregunta perdón :(",52
+L26230507,3er Semestre,19,"import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class OperacionesPila {
+    public int 
+int ep, np,suma=0;
+sumarElementos(Deque<Integer> pila) {
+sout (""ingrese la cantidad de elementos que quiere el la pila:"");
+ep=tecla.nextInt();
+      for (int x=0; x<ep.length;x++){
+System.out.println (""ingrese sus dígitos "")
+np=tecla.nextInt();
+suma=suma+np;
+}
+sout (""la suma de todos los elementos de la pila es: ""+suma);
+        
+    }
+}",Según con los temas que hemos visto sería algo así pero no estoy segura de esto,541
+L26230507,3er Semestre,23,"while (i <= arr.length) { // (Distractor)
+System.out.println(arr[i]);
+i++;
+int i = 0;
+while (i < arr.length) {
+}",Según yo es así pero no estoy segura,160
+L26230514,3er Semestre,3,88,porque  es la logica del algoritmo segun mis conocimientos,106
+L26230514,3er Semestre,8,8,noche,32
+L26230514,3er Semestre,13,"public class Tablero {
+    public int sumarFila(int[][] matriz, int fila) {
+        // Escribe tu lógica aquí
+        
+apenas estoy aprendiendo :'v    
+}
+}",no e visto ese tema,51
+L26230514,3er Semestre,28,"void cuentaRegresiva(int n) {
+if (n <= 0) return;
+cuentaRegresiva(n - 1);
+System.out.println(n);
+}",no se asi me dijo diosito,52
+L26230514,3er Semestre,30,"int aux = arr[j];
+arr[j] = arr[j + 1];
+if (arr[j] > arr[j + 1]) {
+arr[j + 1] = aux;
+}",de lo poco que se de bd es lo que me acuerdo,50
+L26230518,3er Semestre,7,Vehiculo general Motocicleta de dos ruedas,De mis conocimientos de programación y por descarte yo creo que esa es la respuesta,170
+L26230518,3er Semestre,10,A-B,"Porque el primero en salir es el A y luego va el B, el ultimo es el C",256
+L26230518,3er Semestre,12,"public class Evaluacion {
+    public int contarAprobados(int[] notas) {
+        // Escribe tu lógica aquí
+int contador = 0; for (int i = 0; i < notas.length; i++) { if (notas[i] >= 70) { contador++; } } return contador; }
+        
+    }
+}",En clase hemos visto arreglos y yo considero que esta bien,27
+L26230518,3er Semestre,16,"public class Cuenta {
+    private double saldo;
+    public Cuenta(double saldoInicial) { this.saldo = saldoInicial; }
+    
+    public void depositar(double monto) {
+        if (monto > 0) {
+            this.saldo += monto;
+        }
+    }
+    
+    public double getSaldo() { return saldo; }
+}
+",No he visto el tema entonces investigue y recibí ayuda de la IA (de esta aplicación),82
+L26230518,3er Semestre,19,"import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class OperacionesPila {
+    public int sumarElementos(Deque<Integer> pila) {
+        int suma = 0;
+        Deque<Integer> pilaAuxiliar = new ArrayDeque<>();
+
+        // 1. Vaciar la pila original, sumar los valores y guardarlos en la auxiliar
+        while (!pila.isEmpty()) {
+            int elemento = pila.pop();
+            suma += elemento;
+            pilaAuxiliar.push(elemento);
+        }
+
+        // 2. Restaurar los elementos de vuelta a la pila original
+        while (!pilaAuxiliar.isEmpty()) {
+            pila.push(pilaAuxiliar.pop());
+        }
+
+        return suma;
+    }
+}
+",No he visto el tema entonces Investigue y la IA (de la aplicación) me ayudo,56
+L26230519,3er Semestre,6,10,"Se guardan como numeros enteros, y se usa el operador matematico suma(+) para realizar la operacion",230
+L26230519,3er Semestre,16,"public class Cuenta {
+    private double saldo;
+    public Cuenta(double saldoInicial) { this.saldo = saldoInicial; }
+    public void depositar(double monto) {
+        // Escribe tu lógica aquí
+        if (monto>0){
+           saldo=saldo+monto;
+    }
+    }
+    public double getSaldo() { return saldo; }
+}","Con el if permite al programa ver si el monto cumple con la condicion, y evitar modificar el saldo cuando sea igual o menor a 0",539
+L26230519,3er Semestre,18,"public class Recursion {
+    public int sumaNaturales(int n) {
+        // Escribe tu caso base y caso recursivo
+        // Este tema no lo hemos visto
+    }
+}",La actividad no me es posible de realizar debido a que no es un tema que haya visto antes,129
+L26230519,3er Semestre,21,"int area = base + altura; // (Distractor)
+int area = base * altura;
+return area;","Se define la area, base y altura como entero primero, terminando con return para devolverlo",106
+L26230519,3er Semestre,29,"cabeza.siguiente = nuevo; // (Distractor)
+Nodo nuevo = new Nodo(dato);
+nuevo.siguiente = cabeza;
+cabeza = nuevo;","Se define el nuevo nodo primero, siguiendo con asignar los datos a nuevo y cabeza",178
+L26230543,3er Semestre,6,10,Se suma 4 y 6?,336
+L26230543,3er Semestre,9,20,La pila funciona bajo el principio LIFO,104
+L26230543,3er Semestre,25,"public class Libro {
+private String titulo;
+public Libro(String titulo) {
+this.titulo = titulo;
+}
+}",Siempre se empieza declarando la clase,124
+L26230543,3er Semestre,26,"class Perro extends Animal {
+public Perro(String nombre) {
+super(nombre);
+}
+}",Se declara la clase primero,108
+L26230543,3er Semestre,28,"void cuentaRegresiva(int n) {
+if (n <= 0) return;
+System.out.println(n);
+cuentaRegresiva(n - 1);
+}",Primero se declaró la función,48

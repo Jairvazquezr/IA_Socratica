@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (tipoPregunta === 1) {
                         const seleccion = document.querySelector('input[name="respuesta_t1"]:checked');
                         if (!seleccion) {
-                            alert("Por favor, selecciona una opción antes de finalizar el reactivo.");
+                            alert("Selecciona una opción antes de finalizar este reactivo.");
                             return;
                         }
                         codigoFinal = seleccion.value;
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         const editor = document.getElementById("editor-codigo");
                         codigoFinal = editor ? editor.value : "";
                         if (codigoFinal.trim() === "") {
-                            alert("Por favor, escribe tu solución en el editor antes de finalizar.");
+                            alert("Escribe tu solución antes de finalizar este reactivo.");
                             return;
                         }
                     } else if (tipoPregunta === 3) {
@@ -50,12 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const justificacion = inputJustificacion ? inputJustificacion.value.trim() : "";
 
                 if (justificacion.length < 5) {
-                    alert("Por favor, redacta una breve justificación lógica de tu respuesta antes de enviar.");
+                    alert("Escribe tu justificación lógica antes de finalizar este reactivo.");
                     if (inputJustificacion) inputJustificacion.focus();
                     return;
                 }
 
-                const confirmarEnvio = confirm("¿Estás seguro de finalizar este reactivo? Una vez enviado no podrás modificar tu respuesta.");
+                const confirmarEnvio = confirm("¿Confirmas enviar este reactivo? Después ya no podrás cambiarlo.");
                 if (!confirmarEnvio) return;
 
                 enviandoFinal = true;
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .catch(err => {
                     console.error("Error al guardar:", err);
-                    alert("Ocurrió un error de red al intentar guardar. Intenta nuevamente.");
+                    alert("No se pudo guardar la respuesta por un problema de red. Intenta de nuevo.");
                     enviandoFinal = false;
                     btnFinalizar.disabled = false;
                     btnFinalizar.textContent = "Finalizar Reactivo";
@@ -244,6 +244,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
+
+        // --- SOPORTE TÁCTIL PARA CELULARES ---
+        let bloqueTocado = null;
+
+        parsonsContainer.addEventListener("touchstart", (e) => {
+            const item = e.target.closest(".linea-codigo");
+            if (item) {
+                bloqueTocado = item;
+                item.style.opacity = "0.6";
+            }
+        }, { passive: true });
+
+        parsonsContainer.addEventListener("touchmove", (e) => {
+            if (!bloqueTocado) return;
+            e.preventDefault();
+            const toque = e.touches[0];
+            const objetivoElemento = document.elementFromPoint(toque.clientX, toque.clientY);
+            const objetivo = objetivoElemento ? objetivoElemento.closest(".linea-codigo") : null;
+
+            if (objetivo && objetivo !== bloqueTocado && parsonsContainer.contains(objetivo)) {
+                const rect = objetivo.getBoundingClientRect();
+                const mitad = rect.top + rect.height / 2;
+                if (toque.clientY < mitad) {
+                    parsonsContainer.insertBefore(bloqueTocado, objetivo);
+                } else {
+                    parsonsContainer.insertBefore(bloqueTocado, objetivo.nextSibling);
+                }
+            }
+        }, { passive: false });
+
+        const finalizarToque = () => {
+            if (bloqueTocado) {
+                bloqueTocado.style.opacity = "1";
+                bloqueTocado = null;
+            }
+        };
+
+        parsonsContainer.addEventListener("touchend", finalizarToque);
+        parsonsContainer.addEventListener("touchcancel", finalizarToque);
     }
 
     // --- 4. AUDITORÍA SILENCIOSA DEL EDITOR (BACKSPACE Y COPY/PASTE) ---
@@ -267,4 +306,30 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+// --- CONFIRMACIÓN VISUAL DE JUSTIFICACIÓN (ÚTIL EN MÓVIL) ---
+    const btnConfirmarJust = document.getElementById("btn-confirmar-justificacion");
+    const inputJust = document.getElementById("justificacion-alumno");
+    const estadoJust = document.getElementById("estado-justificacion");
+
+    if (btnConfirmarJust && inputJust && estadoJust) {
+        btnConfirmarJust.addEventListener("click", () => {
+            const textoJust = inputJust.value.trim();
+            if (textoJust.length < 5) {
+                estadoJust.style.color = "#b91c1c";
+                estadoJust.textContent = "Escribe al menos 5 caracteres en tu justificación.";
+                inputJust.focus();
+                return;
+            }
+            estadoJust.style.color = "#2a9d8f";
+            estadoJust.textContent = "✓ Justificación lista para enviar al finalizar el reactivo.";
+        });
+
+        inputJust.addEventListener("input", () => {
+            if (estadoJust.textContent !== "") {
+                estadoJust.textContent = "";
+            }
+        });
+    }
+
 });

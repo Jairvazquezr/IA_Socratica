@@ -9,13 +9,13 @@
 <body>
     <header class="header-institucional">
         <div class="logos-container">
-            <div class="logo-placeholder">TecNM</div>
+            <img src="{{ url_for('static', filename='img/TECNM.jpg') }}" alt="Logo TecNM" class="logo-img">
             <div class="info-tec">
                 <h2>Tecnológico Nacional de México</h2>
                 <h3>Instituto Tecnológico de Minatitlán</h3>
                 <p>Matrícula activa: <strong>{{ matricula }}</strong> | <a href="/logout" style="color: #94a3b8; text-decoration: underline;">Cerrar Sesión</a></p>
             </div>
-            <div class="logo-placeholder">ITM</div>
+            <img src="{{ url_for('static', filename='img/ITM.JPG') }}" alt="Logo ITM" class="logo-img">
         </div>
     </header>
 

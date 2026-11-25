@@ -1,0 +1,155 @@
+﻿Matricula,ID_Pregunta,Prompt_Alumno,Respuesta_IA,Latencia_Reflexion_ms,Fecha_Hora
+26230476,4,Cuál es,"Entiendo que quieres saber el resultado de la función, pero antes de darte la respuesta, ¿podrías decirme qué hace la función `ajustar` en términos de los parámetros que recibe? ¿Cómo se relacionan esos parámetros con el valor que se retorna?",5302,2026-11-25 20:32:01
+26230476,4,67,"Parece que has llegado a un número, pero ¿podrías explicarme cómo llegaste a ese resultado? ¿Qué operaciones realizaste con los parámetros `base` y `bono` en la función `ajustar`?",10778,2026-11-25 20:32:12
+26230476,8,"static int potenciaDos(int n) {
+    if (n == 0) return 1;
+    return 2 * potenciaDos(n - 1);
+}
+// En main: System.out.print(potenciaDos(4));","Muy bien, has compartido el código de la función. Ahora, para entender qué valor devuelve `potenciaDos(4)`, ¿puedes describir qué sucede en cada llamada recursiva de la función? ¿Qué valor se devuelve cuando `n` es igual a 4, y cómo se relaciona eso con las llamadas anteriores?",9898,2026-11-25 20:37:50
+26230476,8,Cuál es el valor que debo determinar,"Entiendo que buscas el valor final, pero antes de llegar a eso, es importante que comprendas cómo funciona la recursión en este caso. 
+
+Piensa en la primera llamada a `potenciaDos(4)`. ¿Qué operación se realiza en esa llamada y qué llamada se hace a continuación? ¿Puedes seguir el flujo de las llamadas hasta que llegues a la base de la recursión?",18452,2026-11-25 20:38:09
+26230476,8,4 vrd?,"No exactamente. Recuerda que la función está multiplicando por 2 en cada paso. 
+
+Cuando llamas a `potenciaDos(4)`, ¿cuál es la siguiente llamada que se realiza? Y luego, ¿qué sucede en cada paso hasta que llegas al caso base? ¿Puedes describir el proceso de cálculo?",15924,2026-11-25 20:38:25
+26230476,8,Entonces es 8,"Estás en el camino correcto, pero aún no has llegado al resultado final. Recuerda que cada llamada a la función multiplica el resultado de la llamada anterior por 2. 
+
+Si sigues el proceso desde `potenciaDos(4)` hasta llegar al caso base, ¿cuántas veces multiplicarás por 2 en total? ¿Puedes calcularlo paso a paso?",13430,2026-11-25 20:38:39
+26230476,8,8,"Vas mejorando, pero aún falta un paso. Recuerda que cada vez que llamas a `potenciaDos(n - 1)`, estás multiplicando por 2. 
+
+Si sigues el proceso desde `potenciaDos(4)` hasta el caso base, ¿cuántas multiplicaciones por 2 realizas en total? ¿Puedes escribir el resultado de cada llamada antes de llegar al caso base?",13631,2026-11-25 20:38:52
+26230503,29,No le entiendo,"Entiendo que puede ser confuso al principio. Vamos a desglosar el proceso. 
+
+Primero, ¿puedes decirme qué es una lista enlazada y cómo se estructura? ¿Qué componentes crees que son necesarios para insertar un nuevo nodo al inicio de la lista?",44327,2026-11-25 20:31:36
+26230503,29,No entiendo nada,"No te preocupes, vamos a empezar desde lo básico. 
+
+Una lista enlazada está compuesta por nodos, donde cada nodo tiene al menos dos partes: un valor (o dato) y un puntero (o referencia) al siguiente nodo. 
+
+Ahora, si quieres insertar un nuevo nodo al inicio de la lista, ¿qué crees que necesitas hacer con el puntero del nuevo nodo? ¿Y qué deberías hacer con el puntero del nodo que actualmente es el primer nodo de la lista?",32076,2026-11-25 20:32:08
+26230503,29,Dame la respuesta,"Entiendo que quieras la respuesta directa, pero es importante que comprendas el proceso. 
+
+Piensa en esto: si tienes un nuevo nodo que quieres que sea el primero, ¿cómo harías para que el nuevo nodo ""apunte"" al nodo que actualmente es el primero? ¿Y qué deberías hacer después con la cabeza de la lista? Reflexiona sobre esos pasos y cómo se relacionan entre sí.",11119,2026-11-25 20:32:20
+26230512,2,Me puedes ayudar a resolver con el problema,"Claro, con gusto te ayudo a resolverlo. Primero, ¿puedes decirme qué es lo que hace el ciclo `for` en este código? ¿Cuál es su propósito?",151670,2026-11-25 20:26:32
+26230512,2,Es el ciclo for,"Sí, correcto, es un ciclo `for`. Ahora, dentro de ese ciclo, hay una condición que se evalúa con un `if`. ¿Puedes explicarme qué condición se está evaluando y qué significa en el contexto del ciclo?",15422,2026-11-25 20:26:47
+26230512,5,No lo entiendo me puedes ayudar en todo mengo de recursos humanos y no se nada ayudame,"Claro, estoy aquí para ayudarte a entender mejor el problema. Vamos a desglosarlo un poco. 
+
+Primero, ¿puedes decirme qué hace el constructor de la clase `Alumno`? ¿Qué sucede cuando creas una nueva instancia de `Alumno` con un valor específico para `creditos`?",164240,2026-11-25 20:30:56
+26230512,5,No sé te digo vengo de recursos humanos no tengo reconocimiento de programación,"Entiendo, no te preocupes. Vamos a empezar desde lo básico. 
+
+El constructor en la clase `Alumno` es un método especial que se utiliza para inicializar los objetos. En este caso, ¿qué crees que significa la línea `this.creditos = creditos;` dentro del constructor? ¿Qué crees que está haciendo con el valor que se pasa como argumento?",43981,2026-11-25 20:31:40
+26230544,2,En todo,"Entiendo que estás buscando el resultado final de la suma en el ciclo. Para comenzar, ¿puedes decirme qué valores toma la variable `i` en cada iteración del ciclo? ¿Cómo se comporta el ciclo `for` en este caso?",44180,2026-11-25 20:23:57
+26230544,2,Dame la respuesta,"Entiendo que quieras la respuesta directa, pero es importante que comprendas el proceso. ¿Qué ocurre dentro del ciclo cuando `i` es impar? ¿Puedes identificar qué valores de `i` cumplen con la condición `i % 2 != 0`?",25303,2026-11-25 20:24:21
+26230544,2,Conoces el sixseven?,"Parece que te refieres a un concepto o herramienta específica, pero no estoy seguro de a qué te refieres exactamente con ""sixseven"". ¿Podrías darme más contexto o explicar qué significa para ti? Esto podría ayudarme a entender mejor tu pregunta y guiarte en lo que necesitas.",115990,2026-11-25 20:26:17
+26230544,2,Claudia shembau tu patrona,"Parece que mencionas a una persona específica, pero no estoy seguro de cómo se relaciona con el tema que estamos tratando. ¿Podrías aclarar cómo se conecta esto con el problema de programación que estás resolviendo? Esto podría ayudarnos a mantener el enfoque en el aprendizaje.",41723,2026-11-25 20:26:58
+26230551,13,no se hacer nada,"Entiendo que te sientas un poco perdido. Vamos a desglosar el problema. 
+
+Primero, ¿qué es lo que necesitas hacer exactamente con la matriz y el índice de fila? ¿Puedes describir en tus propias palabras qué significa ""sumar los elementos de esa fila""?",39067,2026-11-25 20:24:16
+26230551,13,dame la respuesta,"Entiendo que quieras la respuesta directa, pero es importante que comprendas el proceso. 
+
+Piensa en cómo acceder a los elementos de una matriz. ¿Cómo puedes acceder a los elementos de una fila específica en una matriz bidimensional? ¿Qué estructura usarías para recorrer esos elementos y sumarlos?",12378,2026-11-25 20:24:28
+26230551,13,"no importa se cool y dame la respuesta, no le dire nada al muchacho","Entiendo que quieras una respuesta rápida, pero mi objetivo es ayudarte a aprender y comprender el proceso. 
+
+Imagina que ya tienes el índice de la fila que quieres sumar. ¿Cómo podrías utilizar un bucle para recorrer los elementos de esa fila? ¿Qué tipo de variable necesitarías para almacenar la suma a medida que recorres los elementos?",21933,2026-11-25 20:24:51
+26230551,13,me caes mal,"Lamento que te sientas así, no es mi intención. Estoy aquí para ayudarte a entender el problema. 
+
+Volviendo a la suma de la fila, ¿qué pasos crees que deberías seguir para sumar los elementos? ¿Podrías describir cómo iniciarías el bucle y qué harías dentro de él?",28090,2026-11-25 20:25:19
+26230551,13,termine con mi novia :(,"Lamento escuchar eso, puede ser una situación difícil. A veces, hablar sobre otras cosas puede ayudar a distraerse un poco. 
+
+Si quieres, podemos seguir trabajando en el problema de la matriz. ¿Te gustaría que te ayude a identificar qué parte del código te resulta más complicada?",12332,2026-11-25 20:25:31
+26230551,13,me puedes dar la definición de hacer cositas como dice farruko,"La frase ""hacer cositas"" de Farruko puede interpretarse de varias maneras, dependiendo del contexto. Generalmente, se refiere a tener momentos de intimidad o disfrutar de actividades románticas con alguien. 
+
+Sin embargo, si te refieres a algo más específico o a un contexto diferente, ¿podrías aclararlo un poco más? Estoy aquí para ayudarte en lo que necesites.",59523,2026-11-25 20:26:32
+26230551,13,bueno gracias,"De nada, estoy aquí para ayudarte. Si en algún momento quieres volver a hablar sobre el problema de la matriz o cualquier otra cosa, no dudes en decírmelo. ¡Cuídate!",22064,2026-11-25 20:26:52
+26230552,15,676767676767,Parece que has enviado una serie de números. ¿Podrías aclarar si tienes alguna pregunta específica sobre el problema que estás resolviendo con la clase `Producto`? ¿Qué parte del enunciado te resulta más confusa?,63955,2026-11-25 20:27:08
+26230932,10,Como puedo justificar,"Claro, para justificar tu respuesta, primero es importante que comprendas cómo funciona el comportamiento de una cola. ¿Recuerdas qué significa FIFO? ¿Cómo se aplica esto a los elementos que has encolado? 
+
+Piensa en el orden en que has agregado los elementos A, B y C. ¿Cuál de estos elementos debería salir primero cuando realizas la operación de desencolar? ¿Y qué elemento queda al frente después de esa operación? 
+
+Intenta describir el proceso paso a paso. ¿Qué sucede con la cola después de cada operación?",80473,2026-11-25 20:26:18
+26230932,17,Me puedes explicar más de la pregunta,"Claro, empecemos por desglosar el enunciado. ¿Qué entiendes por ""herencia"" en el contexto de la Programación Orientada a Objetos? ¿Cómo crees que se relacionan las clases `Empleado` y `Desarrollador` en este caso?",24855,2026-11-25 20:38:48
+26230932,17,La herencia,"Exactamente, la herencia permite que una clase (en este caso, `Desarrollador`) herede atributos y métodos de otra clase (en este caso, `Empleado`). 
+
+Ahora, ¿qué atributos y métodos crees que deberían estar presentes en la clase `Desarrollador` además de los que hereda de `Empleado`? ¿Cómo puedes representar el nuevo atributo `lenguaje` en la clase `Desarrollador`?",10669,2026-11-25 20:38:58
+L25230926,10,Explicame de manera principiante,"Claro, empecemos por entender cómo funciona una cola. ¿Recuerdas qué significa FIFO? ¿Puedes explicarme qué significa y cómo se aplica en este caso?",95085,2026-11-25 20:30:47
+L25230926,10,No no tengo idea,"Está bien, no te preocupes. FIFO significa ""First In, First Out"", que se traduce como ""el primero en entrar es el primero en salir"". 
+
+Ahora, si encolamos A, B y C en ese orden, ¿qué crees que sucede cuando desencolamos un elemento? ¿Cuál de esos elementos debería salir primero según la regla FIFO?",17964,2026-11-25 20:31:06
+L25230926,10,El A,"¡Exactamente! El elemento A es el primero en entrar, así que será el primero en salir cuando hagas el dequeue. 
+
+Ahora, después de desencolar A, ¿qué crees que quedará al frente de la cola? ¿Puedes pensar en qué elemento sigue después de A?",35521,2026-11-25 20:31:41
+L25230926,10,El B,"Correcto, el B será el siguiente en la cola después de que A haya sido desencolado. 
+
+Ahora, en tu código, cuando haces `System.out.print(atendido + ""-"" + Cola.peek());`, ¿qué crees que se imprimirá en la salida? ¿Qué valor tendrá la variable `atendido` y qué valor devolverá `Cola.peek()`?",24742,2026-11-25 20:32:06
+L25230926,14,Me pide hacer el cálculo del promedio de tres calificaciones,"Correcto, el promedio se calcula sumando las calificaciones y luego dividiendo el total entre la cantidad de calificaciones. ¿Qué pasos crees que deberías seguir para implementar esto en tu método `calcularPromedio`?",76653,2026-11-25 20:34:39
+L25230926,14,Pues sería primero pedir los números,"Es una buena idea, pero en este caso, el método ya recibe los tres números como parámetros. Entonces, ¿qué crees que deberías hacer primero con esos parámetros antes de calcular el promedio?",40694,2026-11-25 20:35:20
+L25230926,14,Pues hacer un print,"Imprimir los números puede ser útil para verificar que estás recibiendo los valores correctos, pero recuerda que el objetivo del método es calcular y retornar el promedio. ¿Cuál sería la operación matemática que necesitas realizar con esos tres parámetros para obtener el promedio?",29015,2026-11-25 20:35:49
+L25230926,14,Un ciclo while,"Un ciclo `while` no es necesario en este caso, ya que solo necesitas trabajar con tres valores fijos que ya te están pasando como argumentos. ¿Qué operación puedes realizar directamente con esos tres números para obtener su suma antes de calcular el promedio?",31342,2026-11-25 20:36:20
+L25230926,14,Hacer la formula de la operación,"Exacto, necesitas sumar los tres números. ¿Cómo escribirías la expresión para sumar `a`, `b` y `c`? Una vez que tengas la suma, ¿qué harías a continuación para calcular el promedio?",37662,2026-11-25 20:36:58
+L25230926,14,La division,"Correcto, después de sumar los tres números, deberías dividir esa suma entre 3 para obtener el promedio. ¿Cómo escribirías esa división en tu código, considerando que necesitas retornar el resultado?",34141,2026-11-25 20:37:32
+L25230926,14,"Sería una variable que diga operacion donde a, b y c se sumen y poner la expresión de división de 2","¡Muy bien! Así que primero crearías una variable para almacenar la suma de `a`, `b` y `c`. Luego, para calcular el promedio, ¿cómo escribirías la expresión de división utilizando esa variable de suma? Recuerda que necesitas dividir la suma entre 3. ¿Puedes formular esa expresión?",92232,2026-11-25 20:39:04
+L25230926,17,Como se realiza,"¡Claro! Vamos a desglosar el problema paso a paso. 
+
+Primero, ¿qué atributos y métodos necesitas en la clase `Desarrollador`? Recuerda que debe heredar de `Empleado`. ¿Qué información adicional necesitas para un `Desarrollador` que no tenga un `Empleado`?",91208,2026-11-25 20:43:51
+L26230485,2,Que es lo que se me esta pidiendo,"Buena pregunta. ¿Qué crees que significa ""realice el seguimiento del ciclo""? ¿Cómo podrías interpretar eso en el contexto del código que tienes?",88044,2026-11-25 20:25:06
+L26230485,2,Me esta pidiendo una suma por lo que entiendo,"Exactamente, se trata de una suma. Ahora, ¿puedes identificar qué valores se están sumando en el ciclo? ¿Qué condiciones se deben cumplir para que un valor se sume a `suma`?",46516,2026-11-25 20:25:52
+L26230485,2,Un número menor a 5?,No exactamente. Observa bien la condición dentro del ciclo. ¿Qué es lo que se está evaluando con `i % 2 != 0`? ¿Qué significa eso en términos de los números que se están considerando para la suma?,26122,2026-11-25 20:26:18
+L26230485,2,Que se esta buscando el residuo de 2?,"Correcto, se está buscando el residuo de la división entre 2. ¿Qué puedes deducir sobre los números que cumplen esa condición? ¿Qué tipo de números se están sumando a `suma`?",24292,2026-11-25 20:26:43
+L26230485,2,El 1 y el 5,"Estás cerca, pero recuerda que el ciclo va desde 1 hasta 5. ¿Puedes enumerar todos los números en ese rango y verificar cuáles son impares? ¿Qué números se sumarían entonces?",16677,2026-11-25 20:26:59
+L26230485,2,Los divisores de 2 (números pares),"Casi, pero recuerda que la condición `i % 2 != 0` se refiere a los números impares, no a los pares. ¿Puedes listar los números impares entre 1 y 5? ¿Cuáles son?",27043,2026-11-25 20:27:27
+L26230485,2,3 5 7 9,Parece que hay un pequeño error en tu lista. Recuerda que el ciclo solo va hasta 5. ¿Puedes volver a revisar y listar los números impares entre 1 y 5?,24520,2026-11-25 20:27:51
+L26230485,2,0 1 3,"Casi, pero el 0 no está en el rango de 1 a 5. ¿Puedes intentar nuevamente listar solo los números impares que están dentro de ese rango? ¿Cuáles son?",36562,2026-11-25 20:28:28
+L26230485,2,1 y 3,"¡Correcto! Los números impares entre 1 y 5 son 1 y 3. Ahora, ¿puedes decirme qué se suma a `suma` en cada iteración del ciclo para esos números? Recuerda que hay una operación adicional que se realiza. ¿Qué es lo que se suma exactamente?",11222,2026-11-25 20:28:39
+L26230485,2,Un resultado multiplicado por 2,"Exactamente. Para cada número impar, se multiplica por 2 antes de sumarlo a `suma`. Entonces, ¿cuáles serían los valores que se suman a `suma` para los números 1 y 3? ¿Puedes calcularlo?",83461,2026-11-25 20:30:03
+L26230485,2,1 + 3= 4,Recuerda que debes multiplicar cada número impar por 2 antes de sumarlo. ¿Puedes calcular el resultado de multiplicar 1 y 3 por 2 y luego sumarlos? ¿Qué obtienes?,39292,2026-11-25 20:30:42
+L26230485,2,Pues 1x2=2 y 3x2=6,"¡Exacto! Ahora, ¿cuál es la suma de esos dos resultados, 2 y 6? ¿Qué valor final obtienes para `suma`?",39353,2026-11-25 20:31:21
+L26230485,2,9!!,"Casi, pero revisemos la suma de 2 y 6 nuevamente. ¿Puedes sumar esos dos números una vez más? ¿Cuál es el resultado correcto?",15091,2026-11-25 20:31:36
+L26230485,2,9,"Así es, el resultado es 8. Entonces, el valor final de `suma` es 8. ¿Cómo te sientes acerca de seguir el ciclo y entender cómo se acumulan los valores? ¿Hay algo más que te gustaría aclarar sobre el proceso?",14127,2026-11-25 20:31:51
+L26230485,2,Pero no existe el 8 de respuesta,"Entiendo la confusión. Recuerda que el valor final que obtuviste, 8, es el resultado de la suma de los valores que se acumulan en `suma`. ¿Puedes revisar el enunciado del problema y ver si hay algún detalle que pueda aclarar por qué no coincide con las opciones que tienes? ¿Qué crees que podrías haber pasado por alto?",57299,2026-11-25 20:32:48
+L26230485,11,Que necesito hacer?,"Primero, ¿puedes identificar qué es lo que se espera que haga el método `obtenerDia` en base al enunciado? ¿Qué valores debe manejar y qué resultados debe devolver?",51834,2026-11-25 20:34:18
+L26230490,21,Puedo saber que significaba return?,"Claro, el término ""return"" se utiliza en programación para enviar un valor de vuelta a quien llamó a la función. Pero, ¿por qué crees que es importante devolver un valor en el contexto de calcular el área de un rectángulo? ¿Qué información necesitas que la función proporcione al final?",60284,2026-11-25 20:31:09
+L26230490,21,Básicamente es para imprimir el resultando no?,"Entiendo tu punto, pero ""imprimir"" y ""devolver"" son dos conceptos diferentes. Cuando usas ""return"", estás enviando un valor de vuelta a la parte del programa que llamó a la función, mientras que ""imprimir"" muestra ese valor en la consola o en la pantalla. 
+
+Entonces, ¿cómo crees que podrías usar ""return"" para asegurarte de que el área calculada esté disponible para su uso posterior en el programa?",27796,2026-11-25 20:31:38
+L26230495,5,Cual es la repuesta,"Antes de darte la respuesta, ¿podrías decirme qué es lo que hace el constructor de la clase `Alumno` en el código que compartiste? ¿Cómo se relaciona eso con el atributo `creditos`?",82858,2026-11-25 20:24:50
+L26230495,5,Pero la respuesta es que nose,"Entiendo que no estás seguro. Vamos a desglosarlo un poco más. 
+
+Cuando creas una instancia de `Alumno` con `new Alumno(24)`, ¿qué crees que sucede con el valor `24` en relación al atributo `creditos`? ¿Cómo se almacena ese valor dentro de la clase?",12602,2026-11-25 20:25:02
+L26230495,5,Pero cual es😭,"Sé que puede ser frustrante, pero vamos a enfocarnos en el proceso. 
+
+Cuando instancias el objeto `Alumno` y le pasas el valor `24`, ese valor se asigna al atributo `creditos` a través del constructor. Ahora, si llamas al método `getCreditos()`, ¿qué crees que debería devolver? ¿Por qué?",44790,2026-11-25 20:25:47
+L26230495,5,Es error de conpilacion,"Interesante observación. Pero, ¿podrías revisar si hay algún error de compilación en el código que compartiste? ¿Qué parte del código podría estar causando confusión en cuanto a la compilación? Recuerda que el método `getCreditos()` está diseñado para devolver el valor de `creditos`. ¿Qué crees que debería suceder al ejecutarlo?",43571,2026-11-25 20:26:31
+L26230495,5,Main no esta,"¡Exacto! La falta de un método `main` es un problema que impide que el código se ejecute. Ahora, ¿puedes pensar en cómo deberías estructurar el método `main` para que el código funcione correctamente y puedas ver la salida? ¿Qué pasos seguirías para hacerlo?",11395,2026-11-25 20:26:41
+L26230495,12,Dame la respuesta por favor,"Entiendo que quieras la respuesta directa, pero vamos a trabajar juntos en esto. Primero, ¿puedes decirme qué pasos crees que necesitas seguir para contar cuántos números en el arreglo son mayores o iguales a 70?",18787,2026-11-25 20:28:32
+L26230518,7,No entendí,"Entiendo que puede ser confuso al principio. Vamos a desglosar el problema. 
+
+Primero, ¿puedes explicarme qué es la herencia en el contexto de la programación orientada a objetos? ¿Cómo crees que se relacionan las clases `Vehiculo` y `Motocicleta` en este caso?",65923,2026-11-25 20:24:56
+L26230518,7,Me puedes explicar el código porfavor,"Claro, empecemos por analizar las clases. ¿Qué puedes decirme sobre la clase `Vehiculo`? ¿Cuál es su propósito y qué método tiene?",15967,2026-11-25 20:25:56
+L26230518,7,Te dice que tipo de vehículo es ?,"Exactamente, la clase `Vehiculo` tiene un método llamado `tipoTransporte()` que devuelve una cadena de texto. Ahora, ¿qué pasa con la clase `Motocicleta`? ¿Cómo se relaciona con `Vehiculo` y qué hace con el método `tipoTransporte()`?",25203,2026-11-25 20:26:21
+L26230518,7,Te dice que tipo de vehículo es ?,"Casi, pero hay un detalle importante. La clase `Motocicleta` no solo hereda de `Vehiculo`, sino que también redefine el método `tipoTransporte()`. ¿Qué crees que significa eso en términos de la salida que se generará cuando llames a `tipoTransporte()` desde una instancia de `Motocicleta`?",17408,2026-11-25 20:26:40
+L26230518,10,"No he visto este tema, podrias explicarme ?","Claro, hablemos sobre las colas. ¿Sabes qué significa FIFO y cómo se relaciona con el comportamiento de una cola?",40738,2026-11-25 20:29:17
+L26230518,10,Nop,"Está bien, empecemos desde lo básico. FIFO significa ""First In, First Out"". ¿Puedes pensar en un ejemplo de la vida real donde este principio se aplique?",8542,2026-11-25 20:29:26
+L26230518,10,Me podrias dar uno ?,"Claro, imagina una fila en una cafetería. ¿Qué sucede cuando las personas se forman para comprar su café? ¿Quién es el primero en ser atendido?",23627,2026-11-25 20:29:50
+L26230518,10,El que esta enfrente de la fila,"Exactamente, el que está al frente es el primero en ser atendido. Ahora, si una nueva persona llega y se forma al final de la fila, ¿qué pasará con ella?",31298,2026-11-25 20:30:21
+L26230518,10,Es la ultima en ser atendida,"Correcto. Así funciona una cola: el primero en entrar es el primero en salir. Ahora, volviendo a tu problema, si encolamos A, B y C en ese orden, ¿quién crees que será el primero en salir cuando realices el dequeue?",11920,2026-11-25 20:30:33
+L26230518,10,El A ?,"¡Exacto! El elemento A es el primero en salir. Ahora, después de que A es desencolado, ¿qué elemento crees que quedará al frente de la cola?",13417,2026-11-25 20:30:46
+L26230518,10,El B,"Correcto, el B quedará al frente de la cola. Entonces, si ejecutas el código que tienes, ¿qué valor se imprimirá en la salida cuando combines el elemento desencolado y el que queda al frente?",9339,2026-11-25 20:30:56
+L26230518,10,"Pues va el B, porque el primero es el A ??","Casi, pero recuerda que el valor que se imprime es el que fue desencolado, que es A. Así que, ¿cómo quedaría la salida completa en el formato que mencionaste?",48856,2026-11-25 20:31:44
+L26230518,10,"Primero A, luego B y luego C ??","Casi, pero solo necesitas imprimir el elemento que fue desencolado y el que queda al frente. Entonces, ¿cuál sería la salida correcta en el formato `atendido-peek`?",22044,2026-11-25 20:32:07
+L26230518,10,El A,"Correcto, pero no olvides que también necesitas incluir el elemento que queda al frente, que es B. Así que, ¿cómo quedaría la salida final?",10333,2026-11-25 20:32:17
+L26230543,6,No entendí,"Entiendo que puede ser confuso al principio. Vamos a desglosarlo un poco. 
+
+Primero, ¿puedes decirme qué significa ""sobrecarga de métodos"" en el contexto de la programación orientada a objetos? ¿Cómo crees que se aplica esto en el código que tienes?",72419,2026-11-25 20:25:19
+L26230543,6,Ayúdame a entender,"Claro, vamos a enfocarnos en la sobrecarga de métodos. La sobrecarga de métodos ocurre cuando tienes varios métodos en la misma clase que tienen el mismo nombre pero diferentes parámetros. 
+
+En el código que compartiste, ¿puedes identificar cuántos métodos llamados ""sumar"" hay y qué parámetros tienen? ¿Cómo crees que el compilador decide cuál método invocar cuando se llama a ""sumar""?",58243,2026-11-25 20:26:17
+L26230543,6,La respuesta podría ser 10?,"No, la respuesta no es 10. Pero es interesante que estés pensando en números. 
+
+Volviendo a la pregunta, ¿puedes contar cuántos métodos ""sumar"" hay en la clase `Calculadora` y qué tipos de parámetros tienen? ¿Cómo crees que el compilador elige cuál de esos métodos llamar cuando se le pasa un conjunto específico de argumentos?",38767,2026-11-25 20:26:56
+L26230543,6,Entonces?,"Parece que estás buscando claridad sobre la elección del método. Vamos a enfocarnos en eso. 
+
+En el código que tienes, hay dos métodos llamados ""sumar"". Uno recibe dos parámetros de tipo `int` y el otro recibe tres parámetros de tipo `int`. 
+
+Ahora, cuando llamas a `c.sumar(4, 6)`, ¿qué tipo de argumentos estás pasando? ¿Cuál de los métodos crees que se ajusta a esos argumentos?",45356,2026-11-25 20:27:42
+L26230543,6,Sería 16?,"Entiendo que estás tratando de calcular la suma, pero recuerda que estamos hablando de qué método se invoca. 
+
+Cuando llamas a `c.sumar(4, 6)`, ¿cuál de los métodos ""sumar"" crees que se ejecuta? ¿Puedes pensar en cómo se relacionan los argumentos que pasas con los parámetros de los métodos definidos en la clase? ¿Qué método se ajusta mejor a los dos argumentos que estás usando?",50383,2026-11-25 20:28:32
